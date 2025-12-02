@@ -1,0 +1,87 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 24px;
+  background: #7bb661;
+  font-size: 22px;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Pulsanti Profilo/Logout */
+.profile-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 32px;
+}
+
+/* Pulsante Profilo */
+.profile-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #66a74f;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.profile-button:hover {
+  background-color: rgba(123, 182, 97, 0.8);
+}
+
+/* Pulsante Logout */
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #66a74f;
+  transition: background-color 0.3s; 
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: rgba(123, 182, 97, 0.8);
+}
+
+.profile-icon, .logout-icon {
+  font-size: 1.5rem;
+  color: rgb(11, 11, 59);
+  cursor: pointer;
+}
+
+/* Pulsanti Login/Sign in */
+.login, .sign-in {
+  border: 2px solid #66a74f;
+  color: #fff;
+  border-radius: 4px;
+  padding: 6px 20px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s, border-color 0.3s;
+  cursor: pointer; 
+}
+
+.login:hover, .sign-in:hover {
+  background-color: rgba(102, 167, 79, 0.8);
+  border-color: #57913f;
+}
