@@ -1,11 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth-service/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
-  imports: [],
+  standalone: true,
   templateUrl: './logout.html',
-  styleUrl: './logout.scss',
+  styleUrls: ['./logout.scss'],
 })
-export class Logout {
+export class LogoutComponent implements OnInit {
 
+  constructor(private auth: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.auth.logout();
+
+    // Redirect dopo 2 secondi
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 2000);
+  }
+
+  
 }

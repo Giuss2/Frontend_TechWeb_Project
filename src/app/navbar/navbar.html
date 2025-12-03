@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <nav class="navbar">
   <div class="home">
     <a aria-label="Home" class="logo" routerLink="/">
@@ -6,26 +5,24 @@
     </a>
   </div>
 
-  <div class="profile-menu">
-    <!--<ng-container *ngIf="auth.isUserAuthenticated(); else notLoggedIn">-->
-      <!-- Pulsante Profilo -->
-      <a aria-label="Profilo" class="profile-button" routerLink="/profilo">
-        <span class="profile-icon">👤</span>
-        <span class="profile-username">Profilo</span>
-      </a>
+  <div class="profile-menu" *ngIf="auth.isLogged(); else notLoggedIn">
+    <!-- Pulsante Profilo -->
+    <a aria-label="Profilo" class="profile-button" routerLink="/profilo">
+      <span class="profile-icon">👤</span>
+      <span class="profile-username">Profilo</span>
+    </a>
 
-      <!-- Pulsante Logout -->
-      <a aria-label="Logout" class="logout-button" routerLink="/logout">
-        <span class="logout-icon">⍈</span>
-        <span>Logout</span>
-      </a>
-    <!--</ng-container>-->
+    <!-- Pulsante Logout -->
+    <a aria-label="Logout" class="logout-button" routerLink="/logout">
+      <span class="logout-icon">⍈</span>
+      <span>Logout</span>
+    </a>
   </div>
 
-  <!--<ng-template #notLoggedIn>-->
+  <ng-template #notLoggedIn>
     <div class="login-signup">
       <a aria-label="Login" class="login" routerLink="/login">Login</a>
       <a aria-label="Sign in" class="sign-in" routerLink="/signup-cliente">Sign in</a>
     </div>
- <!--</ng-template>-->
+  </ng-template>
 </nav>

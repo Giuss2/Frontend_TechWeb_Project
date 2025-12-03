@@ -1,11 +1,10 @@
 import { AfterViewInit, Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import * as L from 'leaflet';
 
 @Component({
   selector: 'app-homepage',
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.scss'],
 })
@@ -16,7 +15,8 @@ private map!: L.Map;
 
   ngOnInit() {
     const seen = localStorage.getItem('seenWelcome');
-    this.showWelcomeMessage.set(!seen);
+    //this.showWelcomeMessage.set(!seen); prima o poi voglio che esca solo a utenti NON loggati
+    this.showWelcomeMessage.set(true);
   }
 
   closeWelcomeMessage() {
