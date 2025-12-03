@@ -28,6 +28,17 @@ export class AuthService {
     return false;
   }
 
+  signin(email: string, password: string): boolean {
+    // *** PER ORA È UN MOCK. AGGIUNGI LOGICA ***
+    if (email === 'test@test.com' && password === '1234') {
+      this.isLogged.set(true);
+      localStorage.setItem('loggedIn', 'true');
+      return true;
+    }
+
+    return false;
+  }
+
   logout() {
     this.isLogged.set(false);
     localStorage.removeItem('loggedIn');
