@@ -1,0 +1,16 @@
+
+<!-- Messaggio di benvenuto -->
+<div class="welcome-message" *ngIf="showWelcomeMessage()">
+  <p>
+    Benvenuto su <strong>STREETCATS</strong>! 🐾<br>
+    Qui puoi esplorare e condividere avvistamenti di gatti randagi. <br>
+    Aiutaci a segnalare nuovi gatti aggiungendo foto, descrizioni e commenti. Basta registrarsi!<br>
+    Con il tuo aiuto, un gatto randagio potrebbe trovare finalmente la casa che merita.
+    Buona esplorazione!
+  </p>
+  <button class="btn-ok" (click)="closeWelcomeMessage()">OK</button>
+</div>
+
+<div id="map" class="map-container"></div>
+
+
