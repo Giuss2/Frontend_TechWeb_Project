@@ -29,7 +29,8 @@
   text-decoration: none;
   font-weight: 600;
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: none;
+  border: none;
   background-color: #66a74f;
   transition: background-color 0.3s;
   cursor: pointer;
@@ -49,7 +50,8 @@
   text-decoration: none;
   font-weight: 600;
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: 0px;
+  border: none;
   background-color: #66a74f;
   transition: background-color 0.3s; 
   cursor: pointer;
@@ -67,21 +69,26 @@
 
 /* Pulsanti Login/Sign in */
 .login, .sign-in {
-  border: 2px solid #66a74f;
+  border: none;
   color: #fff;
-  border-radius: 4px;
+  border-radius: 0px;
   padding: 12px 26px;
   text-align: center;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   margin-left: 10px;
   text-decoration: none;
+  background-color: #66a74f;
   transition: background-color 0.3s, border-color 0.3s;
   cursor: pointer; 
+  align-items: center;
+  gap: 6px;
+  
 }
 
 .login:hover, .sign-in:hover {
-  background-color: rgba(102, 167, 79, 0.8);
-  border-color: #57913f;
+  background-color: rgba(123, 182, 97, 0.8);
 }
+
+

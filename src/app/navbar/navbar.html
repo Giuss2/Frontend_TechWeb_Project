@@ -1,28 +1,28 @@
 <nav class="navbar">
   <div class="home">
-    <a aria-label="Home" class="logo" routerLink="/">
+    <div aria-label="Home" class="logo" routerLink="/">
       <span class="name">StreetCats🐾</span>
-    </a>
+    </div>
   </div>
 
   <div class="profile-menu" *ngIf="auth.isLogged(); else notLoggedIn">
     <!-- Pulsante Profilo -->
-    <a aria-label="Profilo" class="profile-button" routerLink="/profilo">
+    <button aria-label="Profilo" class="profile-button" routerLink="/profilo">
       <span class="profile-icon">👤</span>
       <span class="profile-username">Profilo</span>
-    </a>
+    </button>
 
     <!-- Pulsante Logout -->
-    <a aria-label="Logout" class="logout-button" routerLink="/logout">
+    <button aria-label="Logout" class="logout-button" routerLink="/logout">
       <span class="logout-icon">⍈</span>
       <span>Logout</span>
-    </a>
+    </button>
   </div>
 
   <ng-template #notLoggedIn>
     <div class="login-signup">
-      <a aria-label="Login" class="login" routerLink="/login">Login</a>
-      <a aria-label="Sign in" class="sign-in" routerLink="/signup-cliente">Sign in</a>
+      <button aria-label="Login" class="login" (click)="login()">Login</button>
+      <button aria-label="Sign in" class="sign-in">Sign in</button>
     </div>
   </ng-template>
 </nav>
