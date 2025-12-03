@@ -1,16 +1,17 @@
-import { AfterViewInit, Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import * as L from 'leaflet';
+import { MapComponent } from '../map/map';
+import { Avvistamento } from '../map/map';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
-  imports: [CommonModule],
+  imports: [CommonModule, MapComponent],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.scss'],
 })
-export class Homepage implements AfterViewInit, OnInit {
-private map!: L.Map;
-  constructor(){}
+export class Homepage{
+  constructor(private router: Router) {}
   showWelcomeMessage = signal(true);
 
   ngOnInit() {
@@ -24,30 +25,14 @@ private map!: L.Map;
     localStorage.setItem('seenWelcome', 'true');
   }
 
-   ngAfterViewInit(): void {
-    this.initMap();
+  avvistamenti: Avvistamento[] = [
+    { id: 1, userId: 1, titolo: 'Gatto randagio a Roma', lat: 41.9028, lng: 12.4964, descrizione: 'Molto socievole' },
+    { id: 2, userId: 2, titolo: 'Gatto nero a Milano', lat: 45.4642, lng: 9.19, descrizione: 'Si nasconde dietro i cassonetti' }
+  ];
+
+
+  apriProfiloUtente(userId: number) {
+    this.router.navigate(['/profilo', userId]);
   }
-
-  private initMap(): void {
-    // Centra la mappa su una posizione iniziale (es. Italia)
-    this.map = L.map('map', {
-      center: [41.9028, 12.4964], // lat, lng (Roma)
-      zoom: 6
-    });
-
-    // Aggiunge i tiles di OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(this.map);
-
-    setTimeout(() => {
-      this.map.invalidateSize();
-      }, 100);
-
-     // aggiungere un marker
-    L.marker([41.9028, 12.4964])
-      .addTo(this.map)
-      .bindPopup('Gatto segnalato qui 🐾');
-  }
-
+   
 }

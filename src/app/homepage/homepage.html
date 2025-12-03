@@ -11,6 +11,10 @@
   <button class="btn-ok" (click)="closeWelcomeMessage()">OK</button>
 </div>
 
-<div id="map" class="map-container"></div>
+<app-map 
+  [avvistamenti]="avvistamenti" 
+  (markerClick)="apriProfiloUtente($event)">
+</app-map>
+
 
 

@@ -1,8 +1,3 @@
-.map-container {
-  width: 100%;
-  flex: 1 1 auto;
-  margin-top: 2px;
-}
 
 :host {
   display: flex;
@@ -12,6 +7,11 @@
 
 app-navbar {
   flex: 0 0 auto;
+}
+
+app-map {
+  flex: 1 1 auto;
+  display: flex; 
 }
 
 
