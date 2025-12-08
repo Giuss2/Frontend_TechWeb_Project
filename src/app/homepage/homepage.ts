@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MapComponent } from '../map/map';
-import { Avvistamento } from '../map/map';
+import { MapComponent, Avvistamento } from '../map/map';
 import { Router } from '@angular/router';
 
 @Component({

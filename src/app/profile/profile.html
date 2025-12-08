@@ -1,0 +1,10 @@
+<h1>Il mio profilo</h1>
+
+<p>Benvenuto! Qui puoi gestire i tuoi avvistamenti.</p>
+
+<app-map 
+  [avvistamenti]="avvistamenti"
+  (markerClick)="apriProfiloUtente($event)">
+</app-map>
+
+<!--<button (click)="modificaProfilo()">Modifica il mio profilo</button> FARLO O NON FARLO-->
