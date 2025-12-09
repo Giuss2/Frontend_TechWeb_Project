@@ -5,6 +5,7 @@ import { LogoutComponent } from './logout/logout';
 import { SignIn } from './sign-in/sign-in';
 import { ProfiloComponent } from './profile/profile';
 import { OtherProfile } from './other-profile/other-profile';
+import { CatPageComponent } from './cat-page/cat-page';
 
 export const routes: Routes = [
   { path: '', component: Homepage },
@@ -13,5 +14,6 @@ export const routes: Routes = [
   { path: 'signin', component: SignIn },
   { path: 'profile', component: ProfiloComponent},
   { path: 'profile/:id', component: OtherProfile },
+  { path: 'cat/:id', component: CatPageComponent },
   { path: '**', redirectTo: '' } // wildcard, redirect alla home se URL non trovato
 ];

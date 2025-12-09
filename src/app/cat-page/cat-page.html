@@ -1,0 +1,37 @@
+<div class="cat-page-container" *ngIf="avvistamento">
+  <div class="cat-info">
+    <!-- Colonna sinistra: foto -->
+    <div class="cat-photo-container">
+      <img [src]="avvistamento.fotoUrl" alt="Foto del gatto" class="cat-photo">
+    </div>
+
+    <!-- Colonna destra: titolo e descrizione -->
+    <div class="cat-details">
+      <h1>{{ avvistamento.titolo }}</h1>
+      <p [innerHTML]="avvistamento.descrizione"></p>
+
+      <p><strong>Autore: </strong>
+        <button class="btn-small" (click)="vaiAlProfiloUtente(avvistamento.userId)">
+          Profilo utente
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <h3>Mappa</h3>
+  <app-map [avvistamenti]="[avvistamento]"></app-map>
+</div>
+
+<h3>Commenti</h3>
+<div class="commenti-section">
+  <div class="commento-card" *ngFor="let c of commenti">
+    <p><strong>{{ c.user }}</strong> ({{ c.data }}):</p>
+    <p>{{ c.testo }}</p>
+  </div>
+
+  <!-- Form per nuovo commento -->
+  <div class="new-comment">
+    <textarea [(ngModel)]="nuovoCommento" placeholder="Scrivi un commento..."></textarea>
+    <button class="btn-small" (click)="aggiungiCommento()">Invia</button>
+  </div>
+</div>

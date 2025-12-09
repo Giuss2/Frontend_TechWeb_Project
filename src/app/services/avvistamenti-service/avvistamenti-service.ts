@@ -14,7 +14,7 @@ export class AvvistamentiService {
       id: 1,
       userId: 1,
       titolo: "Gatto Nero",
-      descrizione: "Avvistato vicino al parco.",
+      descrizione: "Avvistato vicino al parco. Ha una macchiolina bianca sulla zampa sinistra anteriore. NON prendere in braccio: è aggressivo.",
       fotoUrl: "assets/default-cat.jpg",
       lat: 45.4642,
       lng: 9.19
