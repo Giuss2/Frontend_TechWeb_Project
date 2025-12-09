@@ -12,10 +12,6 @@
   <section class="my-spottings">
     <h3>Avvistamenti dell'utente</h3>
 
-    <app-map 
-      [avvistamenti]="avvistamenti"
-      (markerClick)="vaiADettaglio($event)">
-    </app-map>
 
     <div class="spotting-list">
       <div class="spotting-card" *ngFor="let a of avvistamenti">
