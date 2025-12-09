@@ -4,6 +4,9 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
+  getUser(): any {
+    throw new Error('Method not implemented.');   //DA FARE
+  }
 
   isLogged = signal(true);
 

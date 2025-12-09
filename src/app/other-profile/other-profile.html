@@ -1,1 +1,32 @@
-<p>other-profile works!</p>
+<div class="profile-container">
+  <h1>Profilo utente</h1>
+
+  <section class="user-info" *ngIf="user">
+    <div>
+      <h2>{{ user.username }}</h2>
+    </div>
+  </section>
+
+  <hr>
+
+  <section class="my-spottings">
+    <h3>Avvistamenti dell'utente</h3>
+
+    <app-map 
+      [avvistamenti]="avvistamenti"
+      (markerClick)="vaiADettaglio($event)">
+    </app-map>
+
+    <div class="spotting-list">
+      <div class="spotting-card" *ngFor="let a of avvistamenti">
+        <img [src]="a.fotoUrl" alt="Gatto">
+        <div>
+          <h4>{{ a.titolo }}</h4>
+          <button class="btn-small" (click)="vaiADettaglio(a.id)">
+            Apri dettaglio
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

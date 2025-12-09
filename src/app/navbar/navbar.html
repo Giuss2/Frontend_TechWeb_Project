@@ -7,7 +7,7 @@
 
   <div class="profile-menu" *ngIf="auth.isLogged(); else notLoggedIn">
     <!-- Pulsante Profilo -->
-    <button aria-label="Profilo" class="profile-button" routerLink="/profilo">
+    <button aria-label="Profilo" class="profile-button" (click)="profile()">
       <span class="profile-icon">👤</span>
       <span class="profile-username">Profilo</span>
     </button>

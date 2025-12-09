@@ -1,32 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { CommonModule } from '@angular/common';
-import { MapComponent, Avvistamento } from '../map/map';
+import { MapComponent } from '../map/map';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-other-profile',
-  imports: [],
+  selector: 'other-profile',
+  standalone: true,
   templateUrl: './other-profile.html',
-  styleUrl: './other-profile.scss',
+  styleUrls: ['./other-profile.scss'],
+  imports: [CommonModule, MapComponent]
 })
 export class OtherProfile implements OnInit {
- userId!: number;
-  avvistamenti: Avvistamento[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+   userId!: number;
+  avvistamenti: any[] = [];
+  user: any = null;
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.userId = +params['id'];
-      // CARICA gli avvistamenti di quell'utente dal server
-      this.caricaAvvistamentiUtente(this.userId);
+  constructor(
+    private router: Router,
+    private avvService: AvvistamentiService
+  ) {}
+
+  ngOnInit() {
+    // legge l'URL corrente e estrae l'id
+    // esempio URL = /utente/3
+    const urlSegments = this.router.url.split('/');
+    this.userId = Number(urlSegments[2]); // 2 = terzo segmento della URL
+
+    // dati fake per l'utente
+    this.user = {
+      id: this.userId,
+      username: "Utente_" + this.userId,
+      avatarUrl: "assets/default-avatar.png"
+    };
+
+    this.caricaAvvistamenti();
+  }
+
+  caricaAvvistamenti() {
+    this.avvService.getByUser(this.userId).subscribe(res => {
+      this.avvistamenti = res;
     });
   }
 
-  caricaAvvistamentiUtente(userId: number) {
-    // TODO: sostituire con chiamata API
-    this.avvistamenti = [
-      { id: 1, userId, titolo: 'Gatto rosso a Torino', lat: 45.0703, lng: 7.6869, descrizione: 'Molto socievole' }
-    ];
+  vaiADettaglio(id: number) {
+    this.router.navigate(['/gatto', id]);
   }
 }

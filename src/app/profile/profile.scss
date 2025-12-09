@@ -1,0 +1,54 @@
+.profile-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.spotting-list {
+  margin-top: 20px;
+}
+
+.spotting-card {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.spotting-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.btn-primary {
+  padding: 8px 12px;
+  background: #e67e22;
+  color: white;
+  border-radius: 6px;
+  border: none;
+}
+
+.btn-small {
+  padding: 4px 8px;
+  background: #3498db;
+  color: white;
+  border-radius: 6px;
+  border: none;
+}

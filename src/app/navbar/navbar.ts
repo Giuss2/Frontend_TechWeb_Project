@@ -26,5 +26,8 @@ export class Navbar {
     this.router.navigate(['/']);  
   }
 
+  profile() {          
+    this.router.navigate(['/profile']);  
+  }
 
 }

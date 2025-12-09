@@ -1,10 +1,44 @@
-<h1>Il mio profilo</h1>
+<div class="profile-container">
+  <h1>Il mio profilo</h1>
 
-<p>Benvenuto! Qui puoi gestire i tuoi avvistamenti.</p>
+  <section class="user-info">
+    <div>
+      <h2>{{ user.username }}</h2>
+      <p>Email: {{ user.email }}</p>
+    </div>
+  </section>
 
-<app-map 
-  [avvistamenti]="avvistamenti"
-  (markerClick)="apriProfiloUtente($event)">
-</app-map>
+  <hr>
 
-<!--<button (click)="modificaProfilo()">Modifica il mio profilo</button> FARLO O NON FARLO-->
+  <section class="actions">
+    <button class="btn-primary" routerLink="/nuovo-avvistamento">
+      + Aggiungi nuovo avvistamento
+    </button>
+    <!-- <button class="btn-secondary" (click)="modificaProfilo()">Modifica profilo</button> -->
+  </section>
+
+  <hr>
+
+  <section class="my-spottings">
+    <h3>I miei avvistamenti</h3>
+    
+    <app-map 
+      [avvistamenti]="avvistamenti"
+      (markerClick)="apriProfiloUtente($event)">
+    </app-map>
+
+    <div class="spotting-list">
+      <div class="spotting-card" *ngFor="let a of avvistamenti">
+        <img [src]="a.fotoUrl" alt="Gatto">
+        <div>
+          <h4>{{ a.titolo }}</h4>
+          <!--<p>{{ a.descrizione | slice:0:80 }}...</p>-->
+          <button class="btn-small"
+                  (click)="vaiADettaglio(a.id)">
+            Apri dettaglio
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
