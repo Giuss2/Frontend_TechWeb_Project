@@ -1,12 +1,44 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  display: block;
+  width: 100%;
+  height: 100%; 
 }
 
 .map-container {
-  flex: 1 1 auto;
   width: 100%;
-  height: 100vh;
-  margin-top: 2px;
+  height: 100%; 
+  min-height: 400px; /* sicurezza: altezza minima se parent è piccolo */
+}
+
+
+/* Marker custom */
+.custom-div-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.marker-tooltip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.marker-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+
+.marker-title {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
 }

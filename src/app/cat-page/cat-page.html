@@ -1,7 +1,7 @@
-<div class="cat-page-container" *ngIf="avvistamento">
+<div class="cat-page-container" *ngIf="avvistamento?.img">
   <div class="cat-info">
     <div class="cat-photo-container">
-      <img [src]="avvistamento.fotoUrl" alt="Foto del gatto" class="cat-photo">
+      <img [src]="avvistamento.img" alt="Foto del gatto" class="cat-photo">
     </div>
 
     <div class="cat-details">

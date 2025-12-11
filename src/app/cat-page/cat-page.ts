@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- necessario per ngModel
+import { FormsModule } from '@angular/forms'; 
 import { ActivatedRoute, Router } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { MapComponent } from '../map/map';
@@ -10,14 +10,14 @@ import { MapComponent } from '../map/map';
   standalone: true,
   templateUrl: './cat-page.html',
   styleUrls: ['./cat-page.scss'],
-  imports: [CommonModule, FormsModule, MapComponent] // <-- FormsModule incluso
+  imports: [CommonModule, FormsModule, MapComponent]
 })
 
 export class CatPageComponent implements OnInit {
 
   avvistamento: any = null;
-  commenti: any[] = []; // array dei commenti
-  nuovoCommento: string = ''; // input per il nuovo commento
+  commenti: any[] = []; 
+  nuovoCommento: string = ''; 
 
   constructor(
     private route: ActivatedRoute,
