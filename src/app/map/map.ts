@@ -21,6 +21,8 @@ export interface Avvistamento {
 })
 
 export class MapComponent implements AfterViewInit {
+  private selectedMarker?: L.Marker;
+  @Input() editable: boolean = false;
   @Input() lat: number = 42.5;
   @Input() lng: number = 12.5;
   @Input() avvistamenti: Avvistamento[] = [];
@@ -46,15 +48,26 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
 
+    this.loadMarkers();
+    
     this.map.on('click', (e: L.LeafletMouseEvent) => {
+      if (!this.editable) return; // se non siamo in modalità edit, esci subito
+
       this.lat = e.latlng.lat;
       this.lng = e.latlng.lng;
       this.latChange.emit(this.lat);
       this.lngChange.emit(this.lng);
-    });
 
-    this.loadMarkers();
+      // Rimuove il marker precedente se esiste
+      if (this.selectedMarker) {
+        this.map.removeLayer(this.selectedMarker);
+      }
+
+      // Aggiunge il nuovo marker sulla posizione cliccata
+      this.selectedMarker = L.marker([this.lat, this.lng]).addTo(this.map);
+    });
   }
+
 
   private loadMarkers() {
     this.avvistamenti.forEach(avv => {
