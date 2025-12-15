@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 
@@ -27,6 +27,7 @@ export interface Avvistamento {
   imports: [CommonModule],
   templateUrl: './map.html',
   styleUrls: ['./map.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class MapComponent implements AfterViewInit {
