@@ -2,6 +2,14 @@ import { AfterViewInit, Component, Input, Output, EventEmitter } from '@angular/
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'assets/cats_imgs/marker-icon-2x.png',
+  iconUrl: 'assets/cats_imgs/marker-icon.png',
+  shadowUrl: 'assets/cats_imgs/marker-shadow.png',
+});
+
 export interface Avvistamento {
   id: number;
   userId: number;
@@ -10,6 +18,7 @@ export interface Avvistamento {
   lng: number;
   descrizione: string;
   img: string; 
+  createdAt?: string;
 }
 
 @Component({
@@ -68,11 +77,37 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
+private loadMarkers() {
+  this.avvistamenti.forEach(avv => {
+    const popupContent = document.createElement('div');
+    popupContent.className = 'marker-tooltip';
 
-  private loadMarkers() {
-    this.avvistamenti.forEach(avv => {
-      const marker = L.marker([avv.lat, avv.lng]).addTo(this.map);
-      marker.on('click', () => this.markerClick.emit(avv.id));
+    const img = document.createElement('img');
+    img.src = avv.img;
+    img.className = 'marker-img';
+    popupContent.appendChild(img);
+
+    const titleLink = document.createElement('a');
+    titleLink.href = `/gatto/${avv.id}`;
+    titleLink.textContent = avv.titolo;
+    titleLink.className = 'marker-title-link';
+    popupContent.appendChild(titleLink);
+
+    const dateDiv = document.createElement('div');
+    dateDiv.className = 'marker-date';
+    dateDiv.textContent = avv.createdAt ? new Date(avv.createdAt).toLocaleDateString() : 'Data non disponibile';
+    popupContent.appendChild(dateDiv);
+
+    const marker = L.marker([avv.lat, avv.lng]).addTo(this.map);
+
+    marker.bindPopup(popupContent, { closeButton: true, autoClose: false });
+
+    // Click sul marker apre solo il popup
+    marker.on('click', (e) => {
+      marker.openPopup();
     });
-  }
+  });
+}
+
+
 }
