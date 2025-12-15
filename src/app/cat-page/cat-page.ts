@@ -34,7 +34,7 @@ export class CatPageComponent implements OnInit {
     this.avvService.getById(id).subscribe(res => {
       this.avvistamento = res;
 
-      // inizializziamo commenti fake
+      // commenti fake
       this.commenti = [
         { user: 'Alice', testo: 'Che bel gatto!', data: '2025-12-09' },
         { user: 'Bob', testo: 'L’ho visto anch’io ieri!', data: '2025-12-08' }
