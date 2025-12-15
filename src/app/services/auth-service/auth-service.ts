@@ -7,6 +7,10 @@ export class AuthService {
   getUser(): any {
     throw new Error('Method not implemented.');   //DA FARE
   }
+/*
+  getCurrentUserProfile(): {
+  }
+*/
 
   isLogged = signal(true);
 

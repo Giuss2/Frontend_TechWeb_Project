@@ -8,7 +8,7 @@ export interface Avvistamento {
   titolo: string;
   lat: number;
   lng: number;
-  descrizione?: string;
+  descrizione: string;
   img: string; 
 }
 
@@ -19,23 +19,26 @@ export interface Avvistamento {
   templateUrl: './map.html',
   styleUrls: ['./map.scss'],
 })
-export class MapComponent implements AfterViewInit {
 
+export class MapComponent implements AfterViewInit {
+  @Input() lat: number = 42.5;
+  @Input() lng: number = 12.5;
   @Input() avvistamenti: Avvistamento[] = [];
 
-  // Evento che emette l'id del gatto quando un marker viene cliccato
+  @Output() latChange = new EventEmitter<number>();
+  @Output() lngChange = new EventEmitter<number>();
   @Output() markerClick = new EventEmitter<number>();
 
   private map!: L.Map;
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.initMap();
   }
 
-  private initMap(): void {
+  private initMap() {
     const mapDiv = document.getElementById('map')!;
     this.map = L.map(mapDiv, {
-      center: [41.9028, 12.4964],
+      center: [this.lat, this.lng],
       zoom: 6
     });
 
@@ -43,37 +46,20 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
 
-    // Forza il ridimensionamento corretto
-    setTimeout(() => this.map.invalidateSize(), 300);
+    this.map.on('click', (e: L.LeafletMouseEvent) => {
+      this.lat = e.latlng.lat;
+      this.lng = e.latlng.lng;
+      this.latChange.emit(this.lat);
+      this.lngChange.emit(this.lng);
+    });
 
     this.loadMarkers();
   }
 
-  private loadMarkers(): void {
-  this.avvistamenti.forEach(avv => {
-
-
-    const iconaGatto = L.icon({
-        iconUrl: avv.img,
-        iconSize: [40, 40],       // dimensione finale del marker sulla mappa
-        iconAnchor: [20, 40],     // punto della icona che corrisponde alla posizione geografica
-        popupAnchor: [0, -40],    // posizione del popup rispetto al marker
-        className: 'marker-gatto',
+  private loadMarkers() {
+    this.avvistamenti.forEach(avv => {
+      const marker = L.marker([avv.lat, avv.lng]).addTo(this.map);
+      marker.on('click', () => this.markerClick.emit(avv.id));
     });
-
-    const marker = L.marker([avv.lat, avv.lng], { icon: iconaGatto })
-      .addTo(this.map)
-      .bindPopup(`
-        <div class="marker-tooltip">
-          <img src="${avv.img}" class="marker-img">
-          <div class="marker-title">${avv.titolo}</div>
-        </div>
-      `);
-
-    marker.on('click', () => {
-      this.markerClick.emit(avv.id);
-    });
-  });
-}
-
+  }
 }

@@ -6,8 +6,9 @@
 
     <div class="cat-details">
       <h1>{{ avvistamento.titolo }}</h1>
-      <p [innerHTML]="avvistamento.descrizione"></p>
+      <p [innerHTML]="descrizioneHtml"></p>
       <p><strong>Posizione:</strong> Lat: {{ avvistamento.lat }}, Lng: {{ avvistamento.lng }}</p>
+      <p><strong>Avvistato il:</strong>{{ avvistamento.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
       <p><strong>Utente:</strong>
         <button class="btn-small" (click)="vaiAlProfiloUtente(avvistamento.userId)">
           Profilo utente

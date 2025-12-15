@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { MapComponent } from '../map/map';
+import * as showdown from 'showdown';
+import { CommentsService } from '../services/comments-service/comments-service';
 
 @Component({
   selector: 'app-cat-page',
@@ -22,8 +24,13 @@ export class CatPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private avvService: AvvistamentiService
+    private avvService: AvvistamentiService,
+    private commentsService: CommentsService
   ) {}
+
+  converter = new showdown.Converter();
+  descrizioneHtml: string = '';
+
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -33,22 +40,19 @@ export class CatPageComponent implements OnInit {
   caricaAvvistamento(id: number) {
     this.avvService.getById(id).subscribe(res => {
       this.avvistamento = res;
+      this.descrizioneHtml = this.converter.makeHtml(this.avvistamento.descrizione);
 
-      // commenti fake
-      this.commenti = [
-        { user: 'Alice', testo: 'Che bel gatto!', data: '2025-12-09' },
-        { user: 'Bob', testo: 'L’ho visto anch’io ieri!', data: '2025-12-08' }
-      ];
-    });
+      // commenti fake recuperati dal service
+       this.commentsService.getByAvvistamento(id).subscribe(c => this.commenti = c);
+       });
   }
 
   aggiungiCommento() {
     if (!this.nuovoCommento.trim()) return;
-    this.commenti.push({
-      user: 'Tu', 
-      testo: this.nuovoCommento, 
-      data: new Date().toISOString().split('T')[0]
-    });
+    
+    this.commentsService.create(this.avvistamento.id, 'Tu', this.nuovoCommento)
+    .subscribe(nuovo => this.commenti.push(nuovo));
+
     this.nuovoCommento = '';
   }
 

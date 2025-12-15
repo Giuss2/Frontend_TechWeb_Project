@@ -17,7 +17,8 @@ export class AvvistamentiService {
       descrizione: "Avvistato vicino al parco. Ha una macchiolina bianca sulla zampa sinistra anteriore. NON prendere in braccio: è aggressivo.",
       img: "assets/cats_imgs/gatto_nero.jpg",
       lat: 45.4642,
-      lng: 9.19
+      lng: 9.19,
+      createdAt: new Date('2024-05-10')
     },
     {
       id: 2,
@@ -26,7 +27,8 @@ export class AvvistamentiService {
       descrizione: "Molto socievole!",
       img: "assets/cats_imgs/gatto_randagio.jpg",
       lat: 45.463,
-      lng: 9.20
+      lng: 9.20,
+      createdAt: new Date('2024-05-11')
     }
   ];
 
@@ -49,12 +51,13 @@ export class AvvistamentiService {
 
   // Crea un avvistamento 
   create(data: any): Observable<any> {
-    const nuovo = {
+    const new_one = {
       ...data,
-      id: this.avvistamentiFake.length + 1
+      id: this.avvistamentiFake.length + 1,
+       createdAt: new Date()
     };
-    this.avvistamentiFake.push(nuovo);
-    return of(nuovo);
+    this.avvistamentiFake.push(new_one);
+    return of(new_one);
   }
 
   // Cancella un avvistamento

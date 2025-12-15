@@ -43,6 +43,10 @@ export class ProfiloComponent implements OnInit {
     });
 }
 
+createAvvistamento(){
+  this.router.navigate(['/create-avvistamento']);
+}
+
 
   vaiADettaglio(id: number) {
     this.router.navigate(['/gatto', id]);

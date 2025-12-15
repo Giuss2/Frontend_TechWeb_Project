@@ -1,0 +1,24 @@
+<div class="nuovo-avvistamento-container">
+  <h2>Nuovo Avvistamento</h2>
+
+  <label>Titolo</label>
+  <input [(ngModel)]="titolo" placeholder="Titolo del gatto">
+
+  <label>Descrizione</label> <!--DEVE ESSERE MARKDOWN-->
+  <textarea [(ngModel)]="descrizione" placeholder="Descrizione..."></textarea>
+
+  
+  <label>Carica Foto</label> <!--DA IMPLEMENTARE-->
+  <div class="file-upload-wrapper">
+    <button type="button" class="file-btn" (click)="fileInput.click()">Scegli Foto</button>
+    <span class="file-name">{{ file?.name || 'Nessun file selezionato' }}</span>
+    <input #fileInput type="file" (change)="onFileSelected($event)">
+  </div>
+
+
+  <label>Posizione</label>
+  <app-map [(lat)]="lat" [(lng)]="lng" [avvistamenti]="[]"></app-map>
+
+  <button class="btn" (click)="creaAvvistamento()">Crea Avvistamento</button>
+</div>
+
