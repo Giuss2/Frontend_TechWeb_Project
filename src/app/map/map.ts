@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
+import { Router } from '@angular/router';
+import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
@@ -18,7 +20,7 @@ export interface Avvistamento {
   lng: number;
   descrizione: string;
   img: string; 
-  createdAt?: string;
+  createdAt: string;
 }
 
 @Component({
@@ -31,6 +33,11 @@ export interface Avvistamento {
 })
 
 export class MapComponent implements AfterViewInit {
+   constructor(
+    private avvistamentiService: AvvistamentiService,
+    private router: Router
+  ) {}
+  
   private selectedMarker?: L.Marker;
   @Input() editable: boolean = false;
   @Input() lat: number = 42.5;
@@ -45,7 +52,13 @@ export class MapComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.initMap();
+
+    this.avvistamentiService.getAll().subscribe(data => {
+    this.avvistamenti = data;
+    this.loadMarkers();
+  });
   }
+
 
   private initMap() {
     const mapDiv = document.getElementById('map')!;
@@ -79,36 +92,54 @@ export class MapComponent implements AfterViewInit {
   }
 
 private loadMarkers() {
+
   this.avvistamenti.forEach(avv => {
     const popupContent = document.createElement('div');
     popupContent.className = 'marker-tooltip';
 
+    // Immagine del gatto
     const img = document.createElement('img');
     img.src = avv.img;
     img.className = 'marker-img';
+    
+    img.addEventListener('click', () => {
+      this.router.navigate(['/cat', avv.id]);
+    });
     popupContent.appendChild(img);
 
+    // Titolo come link cliccabile
     const titleLink = document.createElement('a');
-    titleLink.href = `/gatto/${avv.id}`;
     titleLink.textContent = avv.titolo;
-    titleLink.className = 'marker-title-link';
+    titleLink.href = '#'; // impediamo il reload della pagina
+    titleLink.addEventListener('click', (event) => {
+      event.preventDefault(); // evita il reload
+      this.router.navigate(['/cat', avv.id]);
+    });
     popupContent.appendChild(titleLink);
 
+    // Data di creazione
     const dateDiv = document.createElement('div');
     dateDiv.className = 'marker-date';
-    dateDiv.textContent = avv.createdAt ? new Date(avv.createdAt).toLocaleDateString() : 'Data non disponibile';
+
+    if (avv.createdAt) {
+      // trasforma in Date
+      const createdDate = new Date(avv.createdAt);
+      // controllo validità
+      dateDiv.textContent = !isNaN(createdDate.getTime()) ? createdDate.toLocaleDateString() : 'Data non disponibile';
+    } else {
+      dateDiv.textContent = 'Data non disponibile';
+    }
+
     popupContent.appendChild(dateDiv);
 
+    // Creazione del marker
     const marker = L.marker([avv.lat, avv.lng]).addTo(this.map);
 
-    marker.bindPopup(popupContent, { closeButton: true, autoClose: false });
+    // Bind del popup
+    //marker.bindPopup(popupContent, { closeButton: true, autoClose: false });
+    marker.bindPopup(popupContent, { autoClose: false });
 
-    // Click sul marker apre solo il popup
-    marker.on('click', (e) => {
-      marker.openPopup();
-    });
   });
 }
-
 
 }

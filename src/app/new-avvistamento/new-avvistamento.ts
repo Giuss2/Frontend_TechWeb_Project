@@ -27,7 +27,6 @@ export class NewAvvistamento {
   const input = event.target as HTMLInputElement;
   if (input.files && input.files.length > 0) {
     this.file = input.files[0];
-    console.log("File selezionato:", this.file.name);
   }
 }
 
@@ -40,9 +39,9 @@ export class NewAvvistamento {
       descrizione: this.descrizione,
       file: this.file,
       lat: this.lat,
-      lng: this.lng
+      lng: this.lng,
+      createdAt: new Date().toISOString()
     }).subscribe(nuovo => {
-      console.log('Nuovo avvistamento creato:', nuovo);
       this.router.navigate(['/gatto', nuovo.id]);
     });
   }

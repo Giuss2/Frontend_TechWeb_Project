@@ -25,7 +25,7 @@ export class ProfiloComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.user = this.auth.getUser(); // recupera user da JWT o backend
+    this.user = this.auth.getUser(); // recupera user da JWT (O BACKEND)
     this.caricaAvvistamentiUtente();
   }
   
@@ -34,7 +34,7 @@ export class ProfiloComponent implements OnInit {
   this.avvService.getByUser(this.user.id)
     .subscribe({
       next: res => {
-        console.log("Avvistamenti ricevuti:", res);
+        //console.log("Avvistamenti ricevuti:", res);
         this.avvistamenti = res;
       },
       error: err => {
