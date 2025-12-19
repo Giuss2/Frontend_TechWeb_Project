@@ -6,18 +6,30 @@
   background: #fdfdfd;
 }
 
+.floating-back {
+  position: fixed;
+  top: 90px;  /* navbar height + margine */
+  left: 20px;
+  z-index: 1000; /* sopra tutto */
+  padding: 8px 12px;
+  background: #7f8c8d;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 16px;
+}
+
+.floating-back:hover {
+  background: #606c70;
+}
+
+
 .user-info {
   display: flex;
   align-items: center;
   gap: 20px;
-}
-
-.avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #ddd;
 }
 
 .user-info h2 {
@@ -97,7 +109,7 @@
 
 .btn-small {
   padding: 4px 8px;
-  background: #3498db;
+  background: #e67e22;
   color: white;
   border-radius: 6px;
   border: none;
@@ -106,5 +118,5 @@
 }
 
 .btn-small:hover {
-  background: #2980b9;
+  background: #d35400;
 }

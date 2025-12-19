@@ -1,3 +1,5 @@
+<button class="btn-secondary floating-back" (click)="backToMap()">❮ Torna alla mappa</button>
+
 <div class="cat-page-container" *ngIf="avvistamento?.img">
   <div class="cat-info">
     <div class="cat-photo-container">
@@ -31,7 +33,7 @@
   <div class="comment-form-wrapper">
     <div class="new-comment" *ngIf="auth.isLogged(); else loginMsg">
       <textarea [(ngModel)]="nuovoCommento" placeholder="Scrivi un commento..."></textarea>
-      <button class="btn-send" (click)="aggiungiCommento()">Invia</button>
+      <button class="btn-send" (click)="aggiungiCommento()">Invia ➤</button>
     </div>
 
     <ng-template #loginMsg>

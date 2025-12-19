@@ -46,6 +46,10 @@ export class OtherProfile implements OnInit {
   }
 
   vaiADettaglio(id: number) {
-    this.router.navigate(['cat/:id', id]);
+    this.router.navigate(['/cat', id]);
+  }
+
+  backToMap(){
+    this.router.navigate(['/homepage']);
   }
 }

@@ -1,9 +1,11 @@
 <div class="profile-container">
-  <h1>Profilo utente</h1>
+  
+<button class="btn-secondary floating-back" (click)="backToMap()">❮ Torna alla mappa</button>
 
+<div class="profile-container">
   <section class="user-info" *ngIf="user">
     <div>
-      <h2>{{ user.username }}</h2>
+      <h1>{{ user.username }}</h1>
     </div>
   </section>
 

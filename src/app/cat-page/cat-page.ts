@@ -66,6 +66,10 @@ export class CatPageComponent implements OnInit {
   }
 
   vaiAlProfiloUtente(userId: number) {
-    this.router.navigate(['/utente', userId]);
+    this.router.navigate(['/profile', userId]);
+  }
+
+  backToMap(){
+    this.router.navigate(['/homepage']);
   }
 }
