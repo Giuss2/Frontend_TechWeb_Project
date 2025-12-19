@@ -11,7 +11,11 @@ constructor() {}
   // MOCK dei commenti
   private commentiFake: any[] = [
     { id: 1, avvistamentoId: 1, user: 'Alice', testo: 'Che bel gatto!', createdAt: new Date('2025-12-09') },
+    { id: 1, avvistamentoId: 1, user: 'Alice', testo: 'Vorrei portarlo con me!', createdAt: new Date('2025-12-09') },
+    { id: 1, avvistamentoId: 1, user: 'Alice', testo: 'Come lo chiamiamo?', createdAt: new Date('2025-12-09') },
     { id: 2, avvistamentoId: 1, user: 'Bob', testo: 'L’ho visto anch’io ieri!', createdAt: new Date('2025-12-08') },
+    { id: 2, avvistamentoId: 1, user: 'Bob', testo: 'Birba', createdAt: new Date('2025-12-08') },
+    { id: 2, avvistamentoId: 1, user: 'Bob', testo: 'Oppure scotch', createdAt: new Date('2025-12-08') },
     { id: 3, avvistamentoId: 2, user: 'Carla', testo: 'Molto socievole!', createdAt: new Date('2025-12-07') }
   ];
 
