@@ -46,6 +46,6 @@ export class OtherProfile implements OnInit {
   }
 
   vaiADettaglio(id: number) {
-    this.router.navigate(['/gatto', id]);
+    this.router.navigate(['cat/:id', id]);
   }
 }

@@ -54,7 +54,6 @@ export class AvvistamentiService {
     const new_one = {
       ...data,
       id: this.avvistamentiFake.length + 1,
-       createdAt: new Date()
     };
     this.avvistamentiFake.push(new_one);
     return of(new_one);

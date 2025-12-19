@@ -31,20 +31,24 @@ export class NewAvvistamento {
 }
 
   creaAvvistamento() {
-    if (!this.titolo || !this.descrizione) return;
+  if (!this.titolo || !this.descrizione) return;
 
-    this.avvService.create({
-      userId: 1, // TEMPORANEO
-      titolo: this.titolo,
-      descrizione: this.descrizione,
-      file: this.file,
-      lat: this.lat,
-      lng: this.lng,
-      createdAt: new Date().toISOString()
-    }).subscribe(nuovo => {
-      this.router.navigate(['/gatto', nuovo.id]);
-    });
-  }
+  const fakeImg = this.file
+    ? URL.createObjectURL(this.file) // preview locale. Diventerà img: response.imageUrl
+    : 'assets/cats_imgs/gatto_randagio.jpg';
+
+  this.avvService.create({
+    userId: 1,
+    titolo: this.titolo,
+    descrizione: this.descrizione,
+    img: fakeImg,     //  ATTENZIONE
+    lat: this.lat,
+    lng: this.lng,
+    createdAt: new Date()
+  }).subscribe(nuovo => {
+    this.router.navigate(['/cat', nuovo.id]);
+  });
+}
 
 }
 

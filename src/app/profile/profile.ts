@@ -49,7 +49,7 @@ createAvvistamento(){
 
 
   vaiADettaglio(id: number) {
-    this.router.navigate(['/gatto', id]);
+    this.router.navigate(['cat/:id', id]);
   }
 
   apriProfiloUtente(event: any) {
