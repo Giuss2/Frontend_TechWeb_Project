@@ -60,4 +60,8 @@ createAvvistamento(){
   apriProfiloUtente(event: any) {
     this.vaiADettaglio(event.id);
   }
+
+  backToMap(){
+    this.router.navigate(['/homepage']);
+  }
 }
