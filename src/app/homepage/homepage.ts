@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapComponent, Avvistamento } from '../map/map';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth-service/auth-service';
 
 @Component({
   selector: 'app-homepage',
@@ -10,14 +11,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./homepage.scss'],
 })
 export class Homepage{
-  constructor(private router: Router) {}
+  constructor(private router: Router, public auth: AuthService) {}
   showWelcomeMessage = signal(true);
 
-  ngOnInit() {
-    const seen = localStorage.getItem('seenWelcome');
-    //this.showWelcomeMessage.set(!seen); IMPORTANTE: prima o poi voglio che esca solo a utenti NON loggati
-    this.showWelcomeMessage.set(true);
-  }
+ngOnInit() {
+  const seen = localStorage.getItem('seenWelcome');
+
+  // legge lo stato di login dal service
+  const logged = this.auth.isLogged();
+
+  // mostra il messaggio solo se non è stato visto e non sei loggato
+  this.showWelcomeMessage.set(!seen && !logged);
+}
 
   closeWelcomeMessage() {
     this.showWelcomeMessage.set(false);

@@ -51,5 +51,7 @@ export class AuthService {
   logout() {
     this.isLogged.set(false);
     localStorage.removeItem('loggedIn');
+    localStorage.removeItem('seenWelcome');
   }
+
 }
