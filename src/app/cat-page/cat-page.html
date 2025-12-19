@@ -27,9 +27,13 @@
     </div>
 
     <!-- Form nuovo commento -->
-    <div class="new-comment">
+    <div class="new-comment" *ngIf="auth.isLogged(); else loginMsg">
       <textarea [(ngModel)]="nuovoCommento" placeholder="Scrivi un commento..."></textarea>
       <button class="btn-small" (click)="aggiungiCommento()">Invia</button>
     </div>
+
+    <ng-template #loginMsg>
+      <p class="login-msg"><a routerLink="/login">Accedi</a> per aggiungere un commento!</p>
+    </ng-template>
   </div>
 </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
+import { AuthService } from '../services/auth-service/auth-service';
 import { MapComponent } from '../map/map';
 import * as showdown from 'showdown';
 import { CommentsService } from '../services/comments-service/comments-service';
@@ -12,7 +13,7 @@ import { CommentsService } from '../services/comments-service/comments-service';
   standalone: true,
   templateUrl: './cat-page.html',
   styleUrls: ['./cat-page.scss'],
-  imports: [CommonModule, FormsModule, MapComponent]
+  imports: [CommonModule, FormsModule, MapComponent, RouterModule]
 })
 
 export class CatPageComponent implements OnInit {
@@ -25,7 +26,8 @@ export class CatPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private avvService: AvvistamentiService,
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    public auth: AuthService
   ) {}
 
   converter = new showdown.Converter();
@@ -48,9 +50,16 @@ export class CatPageComponent implements OnInit {
   }
 
   aggiungiCommento() {
+  if (!this.auth.isLogged()) {
+    this.router.navigate(['/login']);
+    return;
+  }
+
     if (!this.nuovoCommento.trim()) return;
+    const user = this.auth.getUser();
+    if(!user) return;
     
-    this.commentsService.create(this.avvistamento.id, 'Tu', this.nuovoCommento)
+    this.commentsService.create(this.avvistamento.id, user.name, this.nuovoCommento)
     .subscribe(nuovo => this.commenti.push(nuovo));
 
     this.nuovoCommento = '';

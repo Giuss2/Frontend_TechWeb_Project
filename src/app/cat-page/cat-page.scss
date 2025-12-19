@@ -81,3 +81,18 @@
   border: 1px solid #ccc;
   resize: vertical;
 }
+
+.commenti-section ng-template + p,
+.commenti-section .login-msg {
+  margin-top: 1.25rem;
+  padding: 0.9rem 1.1rem;
+
+  background-color: #f6f9f8;
+  border: 1px dashed #cfd8d3;
+  border-color: #7bb661;
+  border-radius: 10px;
+
+  font-size: 0.95rem;
+  text-align: center;
+  color: #444;
+}
