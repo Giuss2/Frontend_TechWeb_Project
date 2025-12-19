@@ -4,24 +4,26 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  getUser(): any {
-    throw new Error('Method not implemented.');   //DA FARE
-  }
+  private mockUser = {
+    id: 1,
+    name: 'Test User',
+    email: 'test@test.com'
+  };
+  isLogged= signal(false);
+
 /*
   getCurrentUserProfile(): {
   }
 */
 
-  isLogged = signal(true);
 
   constructor() {
-    // recupera lo stato dal localStorage
     const saved = localStorage.getItem('loggedIn');
-    if (saved === null) {
-      this.isLogged.set(true); // test
-    } else {
-      this.isLogged.set(saved === 'true');
-    }
+    this.isLogged.set(saved === 'true');
+  }
+
+  getUser() {
+    return this.isLogged() ? this.mockUser : null;
   }
 
   login(email: string, password: string): boolean {

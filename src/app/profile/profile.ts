@@ -26,6 +26,11 @@ export class ProfiloComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.auth.getUser(); // recupera user da JWT (O BACKEND)
+    if (!this.user) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    
     this.caricaAvvistamentiUtente();
   }
   

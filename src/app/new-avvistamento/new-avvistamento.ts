@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
+import { AuthService } from '../services/auth-service/auth-service';
 import { MapComponent } from '../map/map';
 import { FormsModule } from '@angular/forms';
 
@@ -20,6 +21,7 @@ export class NewAvvistamento {
 
   constructor(
     private avvService: AvvistamentiService,
+    private auth: AuthService,
     private router: Router
   ) {}
 
@@ -31,6 +33,12 @@ export class NewAvvistamento {
 }
 
   creaAvvistamento() {
+  const user = this.auth.getUser();
+  if (!user) {
+    this.router.navigate(['/login']);
+    return;
+  }
+
   if (!this.titolo || !this.descrizione) return;
 
   const fakeImg = this.file
@@ -38,7 +46,7 @@ export class NewAvvistamento {
     : 'assets/cats_imgs/gatto_randagio.jpg';
 
   this.avvService.create({
-    userId: 1,
+    userId: user.id,
     titolo: this.titolo,
     descrizione: this.descrizione,
     img: fakeImg,     //  ATTENZIONE
