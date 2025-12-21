@@ -23,9 +23,9 @@ ngOnInit() {
 
   // mostra il messaggio solo se non è stato visto e non sei loggato
   this.showWelcomeMessage.set(!seen && !logged);
-  this.avvistamentiService.getAll().subscribe(data => {
+ /* this.avvistamentiService.getAll().subscribe(data => {
   this.avvistamenti = [...data];
-});
+});*/
 
 }
 
