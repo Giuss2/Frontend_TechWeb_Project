@@ -4,13 +4,14 @@ import { MapComponent } from '../map/map';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profilo',
   standalone: true,
   templateUrl: "./profile.html",
   styleUrls: ['./profile.scss'],
-  imports: [HttpClientModule, MapComponent]
+  imports: [HttpClientModule, MapComponent, CommonModule]
 })
 
 export class ProfiloComponent implements OnInit {
@@ -54,7 +55,7 @@ createAvvistamento(){
 
 
   vaiADettaglio(id: number) {
-    this.router.navigate(['cat/:id', id]);
+    this.router.navigate(['/cat', id]);
   }
 
   apriProfiloUtente(event: any) {

@@ -24,17 +24,11 @@
   <section class="my-spottings">
     <h3>I miei avvistamenti</h3>
     
-    <app-map 
-      [avvistamenti]="avvistamenti"
-      (markerClick)="apriProfiloUtente($event)">
-    </app-map>
-
     <div class="spotting-list">
       <div class="spotting-card" *ngFor="let a of avvistamenti">
         <img [src]="a.img" alt="Gatto">
         <div>
           <h4>{{ a.titolo }}</h4>
-          <!--<p>{{ a.descrizione | slice:0:80 }}...</p>-->
           <button class="btn-small" (click)="vaiADettaglio(a.id)">
             Apri dettaglio
           </button>

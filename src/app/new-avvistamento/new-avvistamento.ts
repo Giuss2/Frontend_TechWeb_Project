@@ -58,5 +58,16 @@ export class NewAvvistamento {
   });
 }
 
+get formValido(): boolean {
+  return (
+    this.titolo.trim().length > 0 &&
+    this.descrizione.trim().length > 0 &&
+    this.lat !== 0 &&
+    this.lng !== 0
+    // && this.file !== null  per ora la foto è opzionale...potrei renderla obbligatoria
+  );
+}
+
+
 }
 
