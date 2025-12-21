@@ -16,8 +16,10 @@
   </div>
 
 
-  <label>Posizione</label>
+  <label>Posizione del gatto</label>
   <app-map [(lat)]="lat" [(lng)]="lng" [avvistamenti]="[]" [editable]="true"></app-map>
+
+  <div class="form-feedback" *ngIf="!formValido">⚠️ {{ messaggioErrore }}</div>
 
   <button class="btn" (click)="creaAvvistamento()" [disabled]="!formValido">Crea Avvistamento</button>
 </div>

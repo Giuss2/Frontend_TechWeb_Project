@@ -4,10 +4,11 @@ import { AvvistamentiService } from '../services/avvistamenti-service/avvistamen
 import { AuthService } from '../services/auth-service/auth-service';
 import { MapComponent } from '../map/map';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-new-avvistamento',
-  imports: [MapComponent, FormsModule],
+  imports: [MapComponent, FormsModule, CommonModule],
   templateUrl: './new-avvistamento.html',
   styleUrl: './new-avvistamento.scss',
 })
@@ -67,6 +68,27 @@ get formValido(): boolean {
     // && this.file !== null  per ora la foto è opzionale...potrei renderla obbligatoria
   );
 }
+
+get messaggioErrore(): string | null {
+  if (!this.titolo.trim()) {
+    return 'Inserisci un titolo';
+  }
+
+  if (!this.descrizione.trim()) {
+    return 'Inserisci una descrizione';
+  }
+
+  if (this.lat === 0 || this.lng === 0) {
+    return 'Seleziona una posizione sulla mappa';
+  }
+
+  // if (!this.file) {
+  //   return 'Carica una foto';
+  // }
+
+  return null;
+}
+
 
 
 }
