@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MapComponent, Avvistamento } from '../map/map';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
+import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 
 @Component({
   selector: 'app-homepage',
@@ -11,7 +12,7 @@ import { AuthService } from '../services/auth-service/auth-service';
   styleUrls: ['./homepage.scss'],
 })
 export class Homepage{
-  constructor(private router: Router, public auth: AuthService) {}
+  constructor(private router: Router, public auth: AuthService, private avvistamentiService: AvvistamentiService) {}
   showWelcomeMessage = signal(true);
 
 ngOnInit() {
@@ -22,6 +23,10 @@ ngOnInit() {
 
   // mostra il messaggio solo se non è stato visto e non sei loggato
   this.showWelcomeMessage.set(!seen && !logged);
+  this.avvistamentiService.getAll().subscribe(data => {
+  this.avvistamenti = [...data];
+});
+
 }
 
   closeWelcomeMessage() {

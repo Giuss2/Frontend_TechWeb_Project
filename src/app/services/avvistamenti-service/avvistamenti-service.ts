@@ -26,8 +26,8 @@ export class AvvistamentiService {
       titolo: "Gatto Tigrato",
       descrizione: "Molto socievole!",
       img: "assets/cats_imgs/gatto_randagio.jpg",
-      lat: 45.463,
-      lng: 9.20,
+      lat: 41.9028,
+      lng: 12.4964,
       createdAt: new Date('2024-05-11')
     }
   ];

@@ -34,7 +34,7 @@ export interface Avvistamento {
 
 export class MapComponent implements AfterViewInit {
    constructor(
-    private avvistamentiService: AvvistamentiService,
+   // private avvistamentiService: AvvistamentiService,
     private router: Router
   ) {}
   
@@ -52,11 +52,11 @@ export class MapComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.initMap();
-
+/*
     this.avvistamentiService.getAll().subscribe(data => {
     this.avvistamenti = data;
     this.loadMarkers();
-  });
+  });*/
   }
 
 
@@ -92,6 +92,9 @@ export class MapComponent implements AfterViewInit {
   }
 
 private loadMarkers() {
+  if (!this.avvistamenti || this.avvistamenti.length === 0) {
+    return; // i marker non devono essere mostrati nella mappa in "crea avvistamento"
+  }
 
   this.avvistamenti.forEach(avv => {
     const popupContent = document.createElement('div');
