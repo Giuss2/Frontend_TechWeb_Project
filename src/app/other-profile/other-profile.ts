@@ -33,7 +33,6 @@ export class OtherProfile implements OnInit {
     this.user = {
       id: this.userId,
       username: "Utente_" + this.userId,
-      avatarUrl: "assets/default-avatar.png"
     };
 
     this.caricaAvvistamenti();

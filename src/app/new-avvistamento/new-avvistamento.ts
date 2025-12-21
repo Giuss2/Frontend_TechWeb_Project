@@ -64,8 +64,8 @@ get formValido(): boolean {
     this.titolo.trim().length > 0 &&
     this.descrizione.trim().length > 0 &&
     this.lat !== 0 &&
-    this.lng !== 0
-    // && this.file !== null  per ora la foto è opzionale...potrei renderla obbligatoria
+    this.lng !== 0 &&
+    this.file !== null
   );
 }
 
@@ -82,9 +82,9 @@ get messaggioErrore(): string | null {
     return 'Seleziona una posizione sulla mappa';
   }
 
-  // if (!this.file) {
-  //   return 'Carica una foto';
-  // }
+  if (!this.file) {
+     return 'Carica una foto';
+  }
 
   return null;
 }
