@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { AuthService } from '../services/auth-service/auth-service';
@@ -25,6 +25,25 @@ export class NewAvvistamento {
     private auth: AuthService,
     private router: Router
   ) {}
+
+
+@ViewChild('descrizioneInput') descrizioneInput!: ElementRef<HTMLTextAreaElement>;
+
+wrapSelection(before: string, after: string) {
+  const textarea = this.descrizioneInput.nativeElement;
+
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const selected = textarea.value.substring(start, end);
+
+  const newText = before + selected + after;
+
+  textarea.setRangeText(newText, start, end, 'end');
+  textarea.focus();
+
+  this.descrizione = textarea.value;
+}
+
 
   onFileSelected(event: Event) {
   const input = event.target as HTMLInputElement;

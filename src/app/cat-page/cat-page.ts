@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { AuthService } from '../services/auth-service/auth-service';
-import { MapComponent } from '../map/map';
 import * as showdown from 'showdown';
 import { CommentsService } from '../services/comments-service/comments-service';
 
@@ -13,7 +12,7 @@ import { CommentsService } from '../services/comments-service/comments-service';
   standalone: true,
   templateUrl: './cat-page.html',
   styleUrls: ['./cat-page.scss'],
-  imports: [CommonModule, FormsModule, MapComponent, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 
 export class CatPageComponent implements OnInit {

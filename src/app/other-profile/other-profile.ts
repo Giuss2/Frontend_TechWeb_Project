@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { CommonModule } from '@angular/common';
-import { MapComponent } from '../map/map';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
   standalone: true,
   templateUrl: './other-profile.html',
   styleUrls: ['./other-profile.scss'],
-  imports: [CommonModule, MapComponent]
+  imports: [CommonModule]
 })
 export class OtherProfile implements OnInit {
 

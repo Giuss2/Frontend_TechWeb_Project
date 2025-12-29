@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { MapComponent } from '../map/map';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
@@ -11,7 +10,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: "./profile.html",
   styleUrls: ['./profile.scss'],
-  imports: [HttpClientModule, MapComponent, CommonModule]
+  imports: [HttpClientModule, CommonModule]
 })
 
 export class ProfiloComponent implements OnInit {

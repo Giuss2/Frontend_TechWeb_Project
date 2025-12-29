@@ -4,11 +4,18 @@
   <label>Titolo</label>
   <input [(ngModel)]="titolo" placeholder="Titolo del gatto">
 
-  <label>Aggiungi una descrizione...</label> <!--DEVE ESSERE MARKDOWN-->
-  <textarea [(ngModel)]="descrizione" placeholder="Descrizione..."></textarea>
+  <label>Aggiungi una descrizione...</label>
+
+  <div class="md-toolbar">
+    <button type="button" (click)="wrapSelection('**', '**')"><b>B</b></button>
+    <button type="button" (click)="wrapSelection('*', '*')" class="italic-btn">I</button>
+    <button type="button" (click)="wrapSelection('\n- ', '')">• Lista</button>
+  </div>
+
+  <textarea #descrizioneInput [(ngModel)]="descrizione" placeholder="Descrizione..."></textarea>
 
   
-  <label>Carica Foto</label> <!--DA IMPLEMENTARE-->
+  <label>Carica Foto</label> <!--DA IMPLEMENTARE CON BACKEND-->
   <div class="file-upload-wrapper">
     <button type="button" class="file-btn" (click)="fileInput.click()">Scegli Foto</button>
     <span class="file-name">{{ file?.name || 'Nessun file selezionato' }}</span>
