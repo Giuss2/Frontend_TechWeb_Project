@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MapComponent, Avvistamento } from '../map/map';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
+import { BackendService } from '../services/rest-backend/backend-service';
 
 
 @Component({
@@ -12,14 +13,14 @@ import { AuthService } from '../services/auth-service/auth-service';
   styleUrls: ['./homepage.scss'],
 })
 export class Homepage{
-  constructor(private router: Router, public auth: AuthService) {}
+  constructor(private router: Router, public auth: AuthService, public backend: BackendService) {}
   showWelcomeMessage = signal(true);
 
 ngOnInit() {
   const seen = localStorage.getItem('seenWelcome');
 
   // legge lo stato di login dal service
-  const logged = this.auth.isLogged();
+  const logged = this.auth.isLogged;
 
   // mostra il messaggio solo se non è stato visto e non sei loggato
   this.showWelcomeMessage.set(!seen && !logged);

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -6,10 +7,12 @@ import { Observable, of } from 'rxjs';
 })
 export class AvvistamentiService {
 
-  constructor() {}
+  private apiUrl= 'http://localhost:3000';
+
+  constructor(private http: HttpClient) {}
 
   //  SIMULAZIONE (DA CAMBIARE QUANDO AGGIUNGI BACKEND)
-  private avvistamentiFake = [
+  /*private avvistamentiFake = [
     {
       id: 1,
       userId: 1,
@@ -30,38 +33,30 @@ export class AvvistamentiService {
       lng: 12.4964,
       createdAt: new Date('2024-05-11')
     }
-  ];
+  ];*/
 
   // Recupera tutti gli avvistamenti
   getAll(): Observable<any[]> {
-    return of(this.avvistamentiFake);
+    return this.http.get<any[]>(`${this.apiUrl}/cats`);
   }
 
   // Recupera un avvistamento specifico
   getById(id: number): Observable<any> {
-    const trovato = this.avvistamentiFake.find(a => a.id === id);
-    return of(trovato ?? null);
+    return this.http.get<any>(`${this.apiUrl}/cats/${id}`);
   }
 
   // Recupera gli avvistamenti dell’utente
   getByUser(userId: number): Observable<any[]> {
-    const filtrati = this.avvistamentiFake.filter(a => a.userId === userId);
-    return of(filtrati);
+     return this.http.get<any[]>(`${this.apiUrl}/cats?userId=${userId}`);
   }
 
   // Crea un avvistamento 
   create(data: any): Observable<any> {
-    const new_one = {
-      ...data,
-      id: this.avvistamentiFake.length + 1,
-    };
-    this.avvistamentiFake.push(new_one);
-    return of(new_one);
+    return this.http.post<any>(`${this.apiUrl}/cats`, data);
   }
 
   // Cancella un avvistamento
-  delete(id: number): Observable<boolean> {
-    this.avvistamentiFake = this.avvistamentiFake.filter(a => a.id !== id);
-    return of(true);
+  delete(id: number): Observable<any> {
+     return this.http.delete(`${this.apiUrl}/cats/${id}`);
   }
 }

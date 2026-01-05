@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <div class="profile-menu" *ngIf="auth.isLogged(); else notLoggedIn">
+  <div class="profile-menu" *ngIf="auth.isLogged; else notLoggedIn">
     <!-- Pulsante Profilo -->
     <button aria-label="Profilo" class="profile-button" (click)="profile()">
       <span class="profile-icon">👤</span>

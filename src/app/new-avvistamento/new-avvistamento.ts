@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth-service/auth-service';
 import { MapComponent } from '../map/map';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BackendService } from '../services/rest-backend/backend-service';
 
 @Component({
   selector: 'app-new-avvistamento',
@@ -23,7 +24,7 @@ export class NewAvvistamento {
   constructor(
     private avvService: AvvistamentiService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
 
@@ -53,7 +54,7 @@ wrapSelection(before: string, after: string) {
 }
 
   creaAvvistamento() {
-  const user = this.auth.getUser();
+  const user = this.auth.user;
   if (!user) {
     this.router.navigate(['/login']);
     return;

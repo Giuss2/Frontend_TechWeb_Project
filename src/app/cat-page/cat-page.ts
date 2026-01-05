@@ -6,6 +6,7 @@ import { AvvistamentiService } from '../services/avvistamenti-service/avvistamen
 import { AuthService } from '../services/auth-service/auth-service';
 import * as showdown from 'showdown';
 import { CommentsService } from '../services/comments-service/comments-service';
+import { BackendService } from '../services/rest-backend/backend-service';
 
 @Component({
   selector: 'app-cat-page',
@@ -26,7 +27,8 @@ export class CatPageComponent implements OnInit {
     private router: Router,
     private avvService: AvvistamentiService,
     private commentsService: CommentsService,
-    public auth: AuthService
+    public auth: AuthService,
+    public backend: BackendService
   ) {}
 
   converter = new showdown.Converter();
@@ -49,16 +51,16 @@ export class CatPageComponent implements OnInit {
   }
 
   aggiungiCommento() {
-  if (!this.auth.isLogged()) {
+  if (!this.auth.isLogged) {
     this.router.navigate(['/login']);
     return;
   }
 
     if (!this.nuovoCommento.trim()) return;
-    const user = this.auth.getUser();
+    const user = this.auth.user;
     if(!user) return;
     
-    this.commentsService.create(this.avvistamento.id, user.name, this.nuovoCommento)
+    this.commentsService.create(this.avvistamento.id, user.userName, this.nuovoCommento)
     .subscribe(nuovo => this.commenti.unshift(nuovo));  //il nuovo commento viene mostrato all'inizio
 
     this.nuovoCommento = '';

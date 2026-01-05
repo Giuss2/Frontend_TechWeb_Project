@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { CommonModule } from '@angular/common';
+import { BackendService } from '../services/rest-backend/backend-service';
 
 @Component({
   selector: 'app-profilo',
@@ -21,11 +22,12 @@ export class ProfiloComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private avvService: AvvistamentiService,
-    private router: Router
+    private router: Router,
+    private backend: BackendService
   ) {}
 
   ngOnInit() {
-    this.user = this.auth.getUser(); // recupera user da JWT (O BACKEND)
+    this.user = this.auth.user; // recupera user da JWT (O BACKEND)
     if (!this.user) {
       this.router.navigate(['/login']);
       return;
