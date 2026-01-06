@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user-service/user-service';
 
 @Component({
   selector: 'other-profile',
@@ -13,33 +14,43 @@ import { Router } from '@angular/router';
 })
 export class OtherProfile implements OnInit {
 
-   userId!: number;
+  userId!: number;
   avvistamenti: any[] = [];
   user: any = null;
+  error= '';
+  loading: boolean = true;
 
   constructor(
     private router: Router,
-    private avvService: AvvistamentiService
+    private avvService: AvvistamentiService,
+    private route: ActivatedRoute,
+    private userService: UserService,
   ) {}
 
-  ngOnInit() {
-    // legge l'URL corrente e estrae l'id
-    // esempio URL = /utente/3
-    const urlSegments = this.router.url.split('/');
-    this.userId = Number(urlSegments[2]); // 2 = terzo segmento della URL
+    ngOnInit() {
+    this.userId = Number(this.route.snapshot.paramMap.get('id'));
 
-    // dati fake per l'utente
-    this.user = {
-      id: this.userId,
-      username: "Utente_" + this.userId,
-    };
-
+    this.caricaProfilo();
     this.caricaAvvistamenti();
   }
 
+  caricaProfilo() {
+    this.userService.getUserProfile(this.userId).subscribe({
+      next: user => this.user = user,
+      error: () => this.error = 'Utente non trovato'
+    });
+  }
+
   caricaAvvistamenti() {
-    this.avvService.getByUser(this.userId).subscribe(res => {
-      this.avvistamenti = res;
+    this.avvService.getByUser(this.userId).subscribe({
+      next: res => {
+        this.avvistamenti = res;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Errore nel caricamento';
+        this.loading = false;
+      }
     });
   }
 
