@@ -110,7 +110,12 @@ private caricaAvvistamentiBackend() {
 
       // Immagine
       const img = document.createElement('img');
-      img.src = `assets/cats_imgs/${avv.foto}`;  
+      if (avv.foto.startsWith('http')) {
+        img.src = avv.foto; // URL completo (example.com/...)
+      } else {
+        img.src = `assets/cats_imgs/${avv.foto}`; // file locale
+      }
+
       img.className = 'marker-img';
       img.addEventListener('click', () => {
         this.router.navigate(['/cat', avv.id]);

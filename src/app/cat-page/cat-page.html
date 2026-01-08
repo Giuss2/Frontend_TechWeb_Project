@@ -1,9 +1,9 @@
 <button class="btn-secondary floating-back" (click)="backToMap()">❮ Torna alla mappa</button>
 
-<div class="cat-page-container" *ngIf="avvistamento?.img">
+<div class="cat-page-container" *ngIf="avvistamento">
   <div class="cat-info">
     <div class="cat-photo-container">
-      <img [src]="avvistamento.img" alt="Foto del gatto" class="cat-photo">
+      <img [src]="getFotoUrl(avvistamento.foto)" alt="Foto del gatto" class="cat-photo">
     </div>
 
     <div class="cat-details">

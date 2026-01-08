@@ -25,12 +25,12 @@ export class CommentsService {
 */
   // Recupera tutti i commenti di un avvistamento
   getByAvvistamento(avvistamentoId: number): Observable<any[]> {
-     return this.http.get<any[]>(`${this.apiUrl}/cats/${avvistamentoId}/comments`);
+     return this.http.get<any[]>(`${this.apiUrl}/comments/${avvistamentoId}/comments`);
   }
 
   // Aggiunge un nuovo commento
   create(avvistamentoId: number, testo: string): Observable<any> {
-     return this.http.post<any>(`${this.apiUrl}/cats/${avvistamentoId}/comments`, {
+     return this.http.post<any>(`${this.apiUrl}/comments/${avvistamentoId}/comments`, {
       testo: testo
     });
   }

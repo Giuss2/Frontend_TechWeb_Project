@@ -73,4 +73,19 @@ export class CatPageComponent implements OnInit {
   backToMap(){
     this.router.navigate(['/homepage']);
   }
+
+  getFotoUrl(foto: string): string {
+  if (!foto) {
+    return 'assets/cats_imgs/placeholder.jpg';
+  }
+
+  // se è già un URL completo (https://...)
+  if (foto.startsWith('http')) {
+    return foto;
+  }
+
+  // se è un file locale
+  return `assets/cats_imgs/${foto}`;
+}
+
 }

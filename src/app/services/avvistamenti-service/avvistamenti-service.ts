@@ -37,7 +37,7 @@ export class AvvistamentiService {
 
   // Recupera tutti gli avvistamenti
   getAll(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/cats/cats`);
+    return this.http.get<any[]>(`${this.apiUrl}/cats/catsPages`);
   }
 
   // Recupera un avvistamento specifico

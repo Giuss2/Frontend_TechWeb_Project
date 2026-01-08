@@ -1,12 +1,9 @@
-<div class="profile-container">
-  
 <button class="btn-secondary floating-back" (click)="backToMap()">❮ Torna alla mappa</button>
 
-<div class="profile-container">
-  <section class="user-info" *ngIf="user">
-    <div>
-      <h1>{{ user.username }}</h1>
-    </div>
+<div class="profile-container" *ngIf="user; else loadingTpl">
+
+  <section class="user-info">
+    <h1>{{ user.username }}</h1>
   </section>
 
   <hr>
@@ -14,10 +11,9 @@
   <section class="my-spottings">
     <h3>Avvistamenti dell'utente</h3>
 
-
     <div class="spotting-list">
       <div class="spotting-card" *ngFor="let a of avvistamenti">
-        <img [src]="a.img" alt="Gatto">
+        <img [src]="a.foto" alt="Gatto">
         <div>
           <h4>{{ a.titolo }}</h4>
           <button class="btn-small" (click)="vaiADettaglio(a.id)">
@@ -26,5 +22,10 @@
         </div>
       </div>
     </div>
+
   </section>
 </div>
+
+<ng-template #loadingTpl>
+  <p style="text-align:center; margin-top:2rem;">Caricamento profilo...</p>
+</ng-template>
