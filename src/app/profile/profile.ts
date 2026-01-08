@@ -23,7 +23,6 @@ export class ProfiloComponent implements OnInit {
     private auth: AuthService,
     private avvService: AvvistamentiService,
     private router: Router,
-    private backend: BackendService
   ) {}
 
   ngOnInit() {
@@ -41,7 +40,6 @@ export class ProfiloComponent implements OnInit {
   this.avvService.getByUser(this.user.id)
     .subscribe({
       next: res => {
-        //console.log("Avvistamenti ricevuti:", res);
         this.avvistamenti = res;
       },
       error: err => {

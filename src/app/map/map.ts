@@ -19,7 +19,7 @@ export interface Avvistamento {
   lat: number;
   lng: number;
   descrizione: string;
-  img: string; 
+  foto: string; 
   createdAt: string;
 }
 
@@ -34,7 +34,7 @@ export interface Avvistamento {
 
 export class MapComponent implements AfterViewInit {
    constructor(
-   // private avvistamentiService: AvvistamentiService,
+    private avvistamentiService: AvvistamentiService,
     private router: Router
   ) {}
   
@@ -52,6 +52,7 @@ export class MapComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.initMap();
+    this.caricaAvvistamentiBackend();
 /*
     this.avvistamentiService.getAll().subscribe(data => {
     this.avvistamenti = data;
@@ -71,7 +72,7 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
 
-    this.loadMarkers();
+    //this.loadMarkers();
     
     this.map.on('click', (e: L.LeafletMouseEvent) => {
       if (!this.editable) return; // se non siamo in modalità edit, esci subito
@@ -91,58 +92,53 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
-private loadMarkers() {
-  if (!this.avvistamenti || this.avvistamenti.length === 0) {
-    return; // i marker non devono essere mostrati nella mappa in "crea avvistamento"
+private caricaAvvistamentiBackend() {
+    this.avvistamentiService.getAll().subscribe({
+      next: (data) => {
+        this.loadMarkers(data);
+      },
+      error: (err) => {
+        console.error('Errore caricamento avvistamenti', err);
+      }
+    });
   }
 
-  this.avvistamenti.forEach(avv => {
-    const popupContent = document.createElement('div');
-    popupContent.className = 'marker-tooltip';
+ private loadMarkers(avvistamenti: Avvistamento[]) {
+    avvistamenti.forEach(avv => {
+      const popupContent = document.createElement('div');
+      popupContent.className = 'marker-tooltip';
 
-    // Immagine del gatto
-    const img = document.createElement('img');
-    img.src = avv.img;
-    img.className = 'marker-img';
-    
-    img.addEventListener('click', () => {
-      this.router.navigate(['/cat', avv.id]);
-    });
-    popupContent.appendChild(img);
+      // Immagine
+      const img = document.createElement('img');
+      img.src = `assets/cats_imgs/${avv.foto}`;  
+      img.className = 'marker-img';
+      img.addEventListener('click', () => {
+        this.router.navigate(['/cat', avv.id]);
+      });
+      popupContent.appendChild(img);
 
-    // Titolo come link cliccabile
-    const titleLink = document.createElement('a');
-    titleLink.textContent = avv.titolo;
-    titleLink.href = '#'; // impediamo il reload della pagina
-    titleLink.addEventListener('click', (event) => {
-      event.preventDefault(); // evita il reload
-      this.router.navigate(['/cat', avv.id]);
-    });
-    popupContent.appendChild(titleLink);
+      // Titolo cliccabile
+      const titleLink = document.createElement('a');
+      titleLink.textContent = avv.titolo;
+      titleLink.href = '#';
+      titleLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.router.navigate(['/cat', avv.id]);
+      });
+      popupContent.appendChild(titleLink);
 
-    // Data di creazione
-    const dateDiv = document.createElement('div');
-    dateDiv.className = 'marker-date';
-
-    if (avv.createdAt) {
-      // trasforma in Date
+      // Data
+      const dateDiv = document.createElement('div');
+      dateDiv.className = 'marker-date';
       const createdDate = new Date(avv.createdAt);
-      // controllo validità
-      dateDiv.textContent = !isNaN(createdDate.getTime()) ? createdDate.toLocaleDateString() : 'Data non disponibile';
-    } else {
-      dateDiv.textContent = 'Data non disponibile';
-    }
+      dateDiv.textContent = !isNaN(createdDate.getTime())
+        ? createdDate.toLocaleDateString()
+        : 'Data non disponibile';
+      popupContent.appendChild(dateDiv);
 
-    popupContent.appendChild(dateDiv);
-
-    // Creazione del marker
-    const marker = L.marker([avv.lat, avv.lng]).addTo(this.map);
-
-    // Bind del popup
-    //marker.bindPopup(popupContent, { closeButton: true, autoClose: false });
-    marker.bindPopup(popupContent, { autoClose: false });
-
-  });
-}
-
+      // Marker
+      const marker = L.marker([avv.lat, avv.lng]).addTo(this.map);
+      marker.bindPopup(popupContent, { autoClose: false });
+    });
+  }
 }

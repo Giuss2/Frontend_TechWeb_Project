@@ -33,8 +33,8 @@ ngOnInit() {
   }
 
   avvistamenti: Avvistamento[] = [
-    { id: 1, userId: 1, titolo: 'Gatto randagio a Roma', lat: 41.9028, lng: 12.4964, descrizione: 'Molto socievole', img: "assets/cats_imgs/gatto_nero.jpg", createdAt: "2024-05-10T10:30:00Z" },
-    { id: 2, userId: 2, titolo: 'Gatto nero a Milano', lat: 45.4642, lng: 9.19, descrizione: 'Si nasconde dietro i cassonetti', img:  "assets/cats_imgs/gatto_randagio.jpg", createdAt: "2024-05-11T15:45:00Z" }
+    { id: 1, userId: 1, titolo: 'Gatto randagio a Roma', lat: 41.9028, lng: 12.4964, descrizione: 'Molto socievole', foto: "assets/cats_imgs/gatto_nero.jpg", createdAt: "2024-05-10T10:30:00Z" },
+    { id: 2, userId: 2, titolo: 'Gatto nero a Milano', lat: 45.4642, lng: 9.19, descrizione: 'Si nasconde dietro i cassonetti', foto:  "assets/cats_imgs/gatto_randagio.jpg", createdAt: "2024-05-11T15:45:00Z" }
   ];
 
 

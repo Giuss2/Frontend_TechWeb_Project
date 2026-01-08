@@ -60,7 +60,7 @@ export class CatPageComponent implements OnInit {
     const user = this.auth.user;
     if(!user) return;
     
-    this.commentsService.create(this.avvistamento.id, user.userName, this.nuovoCommento)
+    this.commentsService.create(this.avvistamento.id, this.nuovoCommento)
     .subscribe(nuovo => this.commenti.unshift(nuovo));  //il nuovo commento viene mostrato all'inizio
 
     this.nuovoCommento = '';

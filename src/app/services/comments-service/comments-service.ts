@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -6,9 +7,12 @@ import { Observable, of } from 'rxjs';
 })
 export class CommentsService {
   
-constructor() {}
 
+  private apiUrl = 'http://localhost:3000';
+
+  constructor(private http: HttpClient) {}
   // MOCK dei commenti
+  /*
   private commentiFake: any[] = [
     { id: 1, avvistamentoId: 1, user: 'Alice', testo: 'Che bel gatto!', createdAt: new Date('2025-12-09') },
     { id: 1, avvistamentoId: 1, user: 'Alice', testo: 'Vorrei portarlo con me!', createdAt: new Date('2025-12-09') },
@@ -18,30 +22,22 @@ constructor() {}
     { id: 2, avvistamentoId: 1, user: 'Bob', testo: 'Oppure scotch', createdAt: new Date('2025-12-08') },
     { id: 3, avvistamentoId: 2, user: 'Carla', testo: 'Molto socievole!', createdAt: new Date('2025-12-07') }
   ];
-
+*/
   // Recupera tutti i commenti di un avvistamento
   getByAvvistamento(avvistamentoId: number): Observable<any[]> {
-    const filtrati = this.commentiFake.filter(c => c.avvistamentoId === avvistamentoId);
-    return of(filtrati);
+     return this.http.get<any[]>(`${this.apiUrl}/cats/${avvistamentoId}/comments`);
   }
 
   // Aggiunge un nuovo commento
-  create(avvistamentoId: number, user: string, testo: string): Observable<any> {
-    const nuovo = {
-      id: this.commentiFake.length + 1,
-      avvistamentoId,
-      user,
-      testo,
-      createdAt: new Date()
-    };
-    this.commentiFake.push(nuovo);
-    return of(nuovo);
+  create(avvistamentoId: number, testo: string): Observable<any> {
+     return this.http.post<any>(`${this.apiUrl}/cats/${avvistamentoId}/comments`, {
+      testo: testo
+    });
   }
 
   // Cancella un commento
-  delete(id: number): Observable<boolean> {
-    this.commentiFake = this.commentiFake.filter(c => c.id !== id);
-    return of(true);
+  delete(id: number): Observable<any> {
+      return this.http.delete(`${this.apiUrl}/comments/${id}`);
   }
 
 
