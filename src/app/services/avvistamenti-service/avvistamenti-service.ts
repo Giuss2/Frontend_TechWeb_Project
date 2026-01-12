@@ -28,8 +28,19 @@ export class AvvistamentiService {
 
   // Crea un avvistamento 
   create(data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/cats`, data);
-  }
+  const token = localStorage.getItem('token');
+
+  return this.http.post<any>(
+    `${this.apiUrl}/cats`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+}
+
 
   // Cancella un avvistamento
   delete(id: number): Observable<any> {

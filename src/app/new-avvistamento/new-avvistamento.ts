@@ -17,13 +17,12 @@ export class NewAvvistamento {
 
   titolo: string = '';
   descrizione: string = '';
-  file!: File | null;
+  file: File | null = null;
   lat: number = 0;
   lng: number = 0;
 
   constructor(
     private avvService: AvvistamentiService,
-    private auth: AuthService,
     private router: Router,
   ) {}
 
@@ -46,38 +45,35 @@ wrapSelection(before: string, after: string) {
 }
 
 
-  onFileSelected(event: Event) {
+ onFileSelected(event: Event) {
   const input = event.target as HTMLInputElement;
   if (input.files && input.files.length > 0) {
     this.file = input.files[0];
+    console.log('File selezionato:', this.file);
   }
 }
 
-  creaAvvistamento() {
-  const user = this.auth.user;
-  if (!user) {
-    this.router.navigate(['/login']);
-    return;
-  }
 
-  if (!this.titolo || !this.descrizione) return;
-
-  const fakeImg = this.file
-    ? URL.createObjectURL(this.file) // preview locale. Diventerà img: response.imageUrl
-    : 'assets/cats_imgs/gatto_randagio.jpg';
-
-  this.avvService.create({
-    userId: user.id,
+ creaAvvistamento() {
+  const data = {
     titolo: this.titolo,
     descrizione: this.descrizione,
-    img: fakeImg,     //  ATTENZIONE
     lat: this.lat,
     lng: this.lng,
-    createdAt: new Date()
-  }).subscribe(nuovo => {
-    this.router.navigate(['/cat', nuovo.id]);
+    foto: this.file?.name || 'gatto_default.jpg'
+  };
+
+  this.avvService.create(data).subscribe({
+    next: (createdCat) => {
+      console.log('Avvistamento creato');
+       this.router.navigate(['/cat', createdCat.id]);
+    },
+    error: (err) => {
+      console.error('Errore creazione avvistamento', err);
+    }
   });
 }
+
 
 get formValido(): boolean {
   return (
