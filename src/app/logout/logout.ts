@@ -9,7 +9,7 @@ import { BackendService } from '../services/rest-backend/backend-service';
   templateUrl: './logout.html',
   styleUrls: ['./logout.scss'],
 })
-export class LogoutComponent implements OnInit {
+export class Logout implements OnInit {
 
   constructor(private router: Router, private auth: AuthService) {}
 

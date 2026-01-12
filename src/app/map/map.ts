@@ -32,7 +32,7 @@ export interface Avvistamento {
   encapsulation: ViewEncapsulation.None
 })
 
-export class MapComponent implements AfterViewInit {
+export class Map implements AfterViewInit {
    constructor(
     private avvistamentiService: AvvistamentiService,
     private router: Router

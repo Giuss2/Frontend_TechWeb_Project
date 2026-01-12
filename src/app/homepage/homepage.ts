@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
 import { BackendService } from '../services/rest-backend/backend-service';
-import { MapComponent } from '../map/map';
+import { Map } from '../map/map';
 
 @Component({
   selector: 'app-homepage',
-  imports: [CommonModule, MapComponent],
+  imports: [CommonModule, Map],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.scss'],
 })

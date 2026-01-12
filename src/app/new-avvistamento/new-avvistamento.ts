@@ -2,14 +2,14 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { AuthService } from '../services/auth-service/auth-service';
-import { MapComponent } from '../map/map';
+import { Map } from '../map/map';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BackendService } from '../services/rest-backend/backend-service';
 
 @Component({
   selector: 'app-new-avvistamento',
-  imports: [MapComponent, FormsModule, CommonModule],
+  imports: [Map, FormsModule, CommonModule],
   templateUrl: './new-avvistamento.html',
   styleUrl: './new-avvistamento.scss',
 })

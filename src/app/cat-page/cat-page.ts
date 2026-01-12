@@ -16,7 +16,7 @@ import { BackendService } from '../services/rest-backend/backend-service';
   imports: [CommonModule, FormsModule, RouterModule]
 })
 
-export class CatPageComponent implements OnInit {
+export class CatPage implements OnInit {
 
   avvistamento: any = null;
   commenti: any[] = []; 

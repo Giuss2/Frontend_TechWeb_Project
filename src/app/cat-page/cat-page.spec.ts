@@ -5,7 +5,6 @@ import { CatPage } from './cat-page';
 describe('CatPage', () => {
   let component: CatPage;
   let fixture: ComponentFixture<CatPage>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CatPage]
