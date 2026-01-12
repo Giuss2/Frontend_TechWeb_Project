@@ -48,6 +48,19 @@ export class ProfiloComponent implements OnInit {
     });
 }
 
+getFotoUrl(foto: string): string {
+  if (!foto) {
+    return 'assets/cats_imgs/gatto_default.jpg';
+  }
+
+  if (foto.startsWith('http')) {
+    return foto;
+  }
+
+  return `assets/cats_imgs/${foto}`;
+}
+
+
 createAvvistamento(){
   this.router.navigate(['/create-avvistamento']);
 }

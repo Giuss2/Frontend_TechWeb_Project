@@ -26,7 +26,7 @@
     
     <div class="spotting-list">
       <div class="spotting-card" *ngFor="let a of avvistamenti">
-        <img [src]="a.img" alt="Gatto">
+        <img [src]="getFotoUrl(a.foto)" alt="Gatto">
         <div>
           <h4>{{ a.titolo }}</h4>
           <button class="btn-small" (click)="vaiADettaglio(a.id)">
