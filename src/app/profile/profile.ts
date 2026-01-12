@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth-service/auth-service';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { CommonModule } from '@angular/common';
 import { BackendService } from '../services/rest-backend/backend-service';
+import { UserService } from '../services/user-service/user-service';
 
 @Component({
   selector: 'app-profilo',
@@ -23,30 +24,45 @@ export class ProfiloComponent implements OnInit {
     private auth: AuthService,
     private avvService: AvvistamentiService,
     private router: Router,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.user = this.auth.user; // recupera user da JWT (O BACKEND)
-    if (!this.user) {
-      this.router.navigate(['/login']);
-      return;
-    }
-    
-    this.caricaAvvistamentiUtente();
+  const authUser = this.auth.user;
+
+  if (!authUser) {
+    this.router.navigate(['/login']);
+    return;
   }
-  
-  
-  caricaAvvistamentiUtente() {
-  this.avvService.getByUser(this.user.id)
-    .subscribe({
-      next: res => {
-        this.avvistamenti = res;
-      },
-      error: err => {
-        console.error("Errore nel caricamento avvistamenti:", err);
-      }
-    });
+
+  this.caricaProfilo(authUser.id);        // 👈 BACKEND
+  this.caricaAvvistamentiUtente(authUser.id);
 }
+
+caricaProfilo(userId: number) {
+  this.userService.getUserProfile(userId).subscribe({
+    next: user => {
+      console.log('PROFILO PERSONALE DAL BACKEND 👉', user); // 👈 DEBUG
+      this.user = user;
+    },
+    error: err => {
+      console.error('Errore caricamento profilo', err);
+    }
+  });
+}
+  
+  
+  caricaAvvistamentiUtente(userId: number) {
+  this.avvService.getByUser(userId).subscribe({
+    next: res => {
+      this.avvistamenti = res;
+    },
+    error: err => {
+      console.error("Errore nel caricamento avvistamenti:", err);
+    }
+  });
+}
+
 
 getFotoUrl(foto: string): string {
   if (!foto) {
@@ -74,6 +90,7 @@ createAvvistamento(){
     this.vaiADettaglio(event.id);
   }
 
+  
   backToMap(){
     this.router.navigate(['/homepage']);
   }

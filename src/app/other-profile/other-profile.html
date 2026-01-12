@@ -1,9 +1,12 @@
 <button class="btn-secondary floating-back" (click)="backToMap()">❮ Torna alla mappa</button>
 
 <div class="profile-container" *ngIf="user; else loadingTpl">
-
+<h1>{{ user.userName }}</h1>
+  
   <section class="user-info">
-    <h1>{{ user.username }}</h1>
+    <div>
+      <p>Iscritto dal: {{ user.createdAt | date:'dd/MM/yyyy' }}</p>
+    </div>
   </section>
 
   <hr>

@@ -1,12 +1,12 @@
 <button class="btn-secondary floating-back" (click)="backToMap()">❮ Torna alla mappa</button>
 
-<div class="profile-container">
+<div class="profile-container" *ngIf="user">
   <h1>Il mio profilo</h1>
 
   <section class="user-info">
     <div>
-      <h2>{{ user.username }}</h2>
       <p>Email: {{ user.email }}</p>
+      <p>Iscritto dal: {{ user.createdAt | date:'dd/MM/yyyy' }}</p>
     </div>
   </section>
 
