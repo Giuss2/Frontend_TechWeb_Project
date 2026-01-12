@@ -23,22 +23,39 @@ export class CommentsService {
     { id: 3, avvistamentoId: 2, user: 'Carla', testo: 'Molto socievole!', createdAt: new Date('2025-12-07') }
   ];
 */
-  // Recupera tutti i commenti di un avvistamento
-  getByAvvistamento(avvistamentoId: number): Observable<any[]> {
-     return this.http.get<any[]>(`${this.apiUrl}/comments/${avvistamentoId}/comments`);
-  }
 
-  // Aggiunge un nuovo commento
-  create(avvistamentoId: number, testo: string): Observable<any> {
-     return this.http.post<any>(`${this.apiUrl}/comments/${avvistamentoId}/comments`, {
-      testo: testo
-    });
-  }
 
-  // Cancella un commento
-  delete(id: number): Observable<any> {
-      return this.http.delete(`${this.apiUrl}/comments/${id}`);
-  }
+// Recupera tutti i commenti di un avvistamento
+getByAvvistamento(avvistamentoId: number): Observable<any[]> {
+  return this.http.get<any[]>(
+    `${this.apiUrl}/comments/${avvistamentoId}/comments`,
+    { withCredentials: true }
+  );
+}
 
+// Aggiunge un nuovo commento (RICHIEDE LOGIN)
+create(avvistamentoId: number, testo: string): Observable<any> {
+  const token = localStorage.getItem('token');
+
+  return this.http.post(
+  `http://localhost:3000/comments/${avvistamentoId}/comments`,
+  { testo: testo },
+  {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+  }
+)
+
+}
+
+
+// Cancella un commento (RICHIEDE LOGIN)
+delete(id: number): Observable<any> {
+  return this.http.delete(
+    `${this.apiUrl}/comments/comments/${id}`,
+    { withCredentials: true }
+  );
+}
 
 }

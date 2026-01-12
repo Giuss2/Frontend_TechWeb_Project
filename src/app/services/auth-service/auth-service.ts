@@ -20,7 +20,6 @@ export class AuthService {
 
   constructor() {
     const token = localStorage.getItem('token');
-    console.log('[Auth] init token =', token);
 
     if (token) {
       this._token.set(token);
@@ -63,7 +62,6 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.rest.login(credentials).subscribe({
         next: (response) => {
-          console.log('[Auth] login OK');
           localStorage.setItem('token', response.token);
           this._token.set(response.token);
           this._setUserFromToken(response.token);

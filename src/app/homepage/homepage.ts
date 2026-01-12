@@ -28,8 +28,6 @@ export class Homepage {
 
     const shouldShow = !logged && lastSeenDate !== today;
 
-    console.log('[Homepage]', { lastSeenDate, today, logged, shouldShow });
-
     this.showWelcomeMessage.set(shouldShow);
   }
 
