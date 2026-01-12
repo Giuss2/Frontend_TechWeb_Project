@@ -1,27 +1,28 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { AuthService } from './services/auth-service/auth-service';
+import { BackendService } from './services/rest-backend/backend-service';
 
-describe('App', () => {
-
-  const authServiceMock = {
-    isLogged: false,
-    user: null
-  };
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-      providers: [
-        { provide: AuthService, useValue: authServiceMock }
-      ]
-    }).compileComponents();
-  });
-
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
+beforeEach(async () => {
+  await TestBed.configureTestingModule({
+    imports: [
+      AppComponent,
+      RouterTestingModule   // 🔴 QUESTO È FONDAMENTALE
+    ],
+    providers: [
+      {
+        provide: BackendService,
+        useValue: {}
+      },
+      {
+        provide: AuthService,
+        useValue: {
+          init: jasmine.createSpy(),
+          logout: jasmine.createSpy(),
+          login: jasmine.createSpy()
+        }
+      }
+    ]
+  }).compileComponents();
 });

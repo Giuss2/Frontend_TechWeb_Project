@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Homepage } from './homepage';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '../services/auth-service/auth-service';
-import { BackendService } from '../services/rest-backend/backend-service';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { Component } from '@angular/core';
+import { of } from 'rxjs';
+import { AuthService } from '../services/auth-service/auth-service';
+import { BackendService } from '../services/rest-backend/backend-service';
+
 
 @Component({
   selector: 'app-map',
@@ -36,10 +38,26 @@ describe('Homepage', () => {
         RouterTestingModule
       ],
       providers: [
-        { provide: AuthService, useValue: authServiceMock },
-        { provide: BackendService, useValue: backendServiceMock },
-        { provide: AvvistamentiService, useValue: avvistamentiServiceMock }
-      ]
+  {
+    provide: AvvistamentiService,
+    useValue: {
+      getAll: jasmine.createSpy('getAll').and.returnValue(of([]))
+    }
+  },
+  {
+    provide: AuthService,
+    useValue: {
+      user: null,
+      isLogged: false
+    }
+  },
+  {
+    provide: BackendService,
+    useValue: {}   // mock vuoto, basta per spezzare la catena
+  }
+]
+
+
     }).compileComponents();
 
     fixture = TestBed.createComponent(Homepage);
