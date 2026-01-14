@@ -25,9 +25,28 @@
 
   <div class="commenti-list">
     <div class="commento-card" *ngFor="let c of commenti">
-      <p><strong>{{ c.user }}</strong> ({{ c.data }}):</p>
-      <p>{{ c.testo }}</p>
+  <div class="comment-header">
+    <div class="comment-user">
+      <div class="avatar">
+        {{ c.User?.username?.charAt(0) }}
+      </div>
+      <span 
+        class="comment-username clickable"
+        (click)="vaiAlProfiloUtente(c.User?.id)">
+        {{ c.User?.username }}
+      </span>
+
     </div>
+    <span class="comment-date">
+      {{ c.createdAt | date:'dd/MM/yyyy HH:mm' }}
+    </span>
+  </div>
+
+  <div class="comment-body">
+    {{ c.testo }}
+  </div>
+</div>
+
   </div>
 
   <div class="comment-form-wrapper">
