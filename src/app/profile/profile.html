@@ -6,7 +6,7 @@
   <section class="user-info">
     <div>
       <p>Email: {{ user.email }}</p>
-      <p>Iscritto dal: {{ user.dataInserimento | date:'dd/MM/yyyy' }}</p>
+      <p>Iscritto dal: {{ user.createdAt | date:'dd/MM/yyyy' }}</p>
     </div>
   </section>
 
