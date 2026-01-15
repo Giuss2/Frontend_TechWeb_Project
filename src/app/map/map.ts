@@ -20,7 +20,7 @@ export interface Avvistamento {
   lng: number;
   descrizione: string;
   foto: string; 
-  createdAt: string;
+  dataInserimento: string;
 }
 
 @Component({
@@ -135,7 +135,7 @@ private caricaAvvistamentiBackend() {
       // Data
       const dateDiv = document.createElement('div');
       dateDiv.className = 'marker-date';
-      const createdDate = new Date(avv.createdAt);
+      const createdDate = new Date(avv.dataInserimento);
       dateDiv.textContent = !isNaN(createdDate.getTime())
         ? createdDate.toLocaleDateString()
         : 'Data non disponibile';

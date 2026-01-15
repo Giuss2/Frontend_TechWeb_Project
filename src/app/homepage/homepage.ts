@@ -29,6 +29,7 @@ export class Homepage {
     const shouldShow = !logged && lastSeenDate !== today;
 
     this.showWelcomeMessage.set(shouldShow);
+
   }
 
   closeWelcomeMessage() {

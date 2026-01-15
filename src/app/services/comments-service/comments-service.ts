@@ -15,7 +15,7 @@ export class CommentsService {
 // Recupera tutti i commenti di un avvistamento
 getByAvvistamento(avvistamentoId: number): Observable<any[]> {
   return this.http.get<any[]>(
-    `${this.apiUrl}/comments/${avvistamentoId}/comments`,
+    `${this.apiUrl}/cats/${avvistamentoId}/comments`,
     { withCredentials: true }
   );
 }
@@ -25,7 +25,7 @@ create(avvistamentoId: number, testo: string): Observable<any> {
   const token = localStorage.getItem('token');
 
   return this.http.post(
-    `http://localhost:3000/comments/${avvistamentoId}/comments`,
+    `http://localhost:3000/cats/${avvistamentoId}/comments`,
     { testo: testo },
     {
       headers: {
@@ -39,7 +39,7 @@ create(avvistamentoId: number, testo: string): Observable<any> {
 // Cancella un commento (RICHIEDE LOGIN)
 delete(id: number): Observable<any> {
   return this.http.delete(
-    `${this.apiUrl}/comments/comments/${id}`,
+    `${this.apiUrl}/comments/${id}`,
     { withCredentials: true }
   );
 }

@@ -12,7 +12,7 @@ test.describe('Welcome message daily behavior', () => {
 
   test('mostra welcome al primo accesso del giorno se non loggato', async ({ page }) => {
   await page.addInitScript(() => {
-    const fakeToday = new Date(2026, 0, 15).valueOf();
+    const fakeToday = new Date(2027, 0, 15).valueOf();
     Date.now = () => fakeToday;
     localStorage.clear();
   });

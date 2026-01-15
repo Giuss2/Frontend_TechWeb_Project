@@ -10,7 +10,7 @@
       <h1>{{ avvistamento.titolo }}</h1>
       <p [innerHTML]="descrizioneHtml" style="margin-left: 2em;"></p>
       <p><strong>Posizione: </strong> Lat: {{ avvistamento.lat }}, Lng: {{ avvistamento.lng }}</p>
-      <p><strong>Avvistato il: </strong>{{ avvistamento.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Avvistato il: </strong>{{ avvistamento.dataInserimento | date:'dd/MM/yyyy HH:mm' }}</p>
       <p><strong>Utente: </strong>
         <button class="btn-small" (click)="vaiAlProfiloUtente(avvistamento.userId)">
           Profilo utente
@@ -18,6 +18,7 @@
       </p>
     </div>
   </div>
+
 
   <!-- Commenti -->
   <div class="commenti-section">
@@ -28,17 +29,17 @@
   <div class="comment-header">
     <div class="comment-user">
       <div class="avatar">
-        {{ c.User?.username?.charAt(0) }}
+        {{ c.User?.userName?.charAt(0) }}
       </div>
       <span 
         class="comment-username clickable"
         (click)="vaiAlProfiloUtente(c.User?.id)">
-        {{ c.User?.username }}
+        {{ c.User?.userName }}
       </span>
 
     </div>
     <span class="comment-date">
-      {{ c.createdAt | date:'dd/MM/yyyy HH:mm' }}
+      {{ c.dataInserimento | date:'dd/MM/yyyy HH:mm' }}
     </span>
   </div>
 
