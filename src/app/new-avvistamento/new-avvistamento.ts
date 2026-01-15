@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { AuthService } from '../services/auth-service/auth-service';
-import { Map } from '../map/map';
+import { Avvistamento, Map } from '../map/map';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BackendService } from '../services/rest-backend/backend-service';
@@ -20,6 +20,17 @@ export class NewAvvistamento {
   file: File | null = null;
   lat: number = 0;
   lng: number = 0;
+  avvistamenti: Avvistamento[] = [];
+
+ngOnInit() {
+  this.avvService.getAll().subscribe({
+    next: (data) => {
+      this.avvistamenti = data;
+    },
+    error: (err) => console.error('Errore caricamento avvistamenti', err)
+  });
+}
+
 
   constructor(
     private avvService: AvvistamentiService,
@@ -28,6 +39,8 @@ export class NewAvvistamento {
 
 
 @ViewChild('descrizioneInput') descrizioneInput!: ElementRef<HTMLTextAreaElement>;
+
+
 
 wrapSelection(before: string, after: string) {
   const textarea = this.descrizioneInput.nativeElement;
@@ -80,8 +93,8 @@ get formValido(): boolean {
     this.titolo.trim().length > 0 &&
     this.descrizione.trim().length > 0 &&
     this.lat !== 0 &&
-    this.lng !== 0 &&
-    this.file !== null
+    this.lng !== 0 
+    //this.file !== null
   );
 }
 
@@ -98,9 +111,6 @@ get messaggioErrore(): string | null {
     return 'Seleziona una posizione sulla mappa';
   }
 
-  if (!this.file) {
-     return 'Carica una foto';
-  }
 
   return null;
 }

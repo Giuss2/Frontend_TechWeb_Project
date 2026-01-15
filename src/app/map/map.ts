@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 import { Router } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
+import { OnChanges } from '@angular/core';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
@@ -32,7 +33,7 @@ export interface Avvistamento {
   encapsulation: ViewEncapsulation.None
 })
 
-export class Map implements AfterViewInit {
+export class Map implements AfterViewInit, OnChanges {
    constructor(
     private avvistamentiService: AvvistamentiService,
     private router: Router
@@ -52,13 +53,21 @@ export class Map implements AfterViewInit {
 
   ngAfterViewInit() {
     this.initMap();
-    this.caricaAvvistamentiBackend();
+    //this.caricaAvvistamentiBackend();
+    this.loadMarkers(this.avvistamenti);
 /*
     this.avvistamentiService.getAll().subscribe(data => {
     this.avvistamenti = data;
     this.loadMarkers();
   });*/
   }
+
+  ngOnChanges() {
+  if (this.map && this.avvistamenti.length > 0) {
+    this.loadMarkers(this.avvistamenti);
+  }
+}
+
 
 
   private initMap() {
@@ -91,7 +100,7 @@ export class Map implements AfterViewInit {
       this.selectedMarker = L.marker([this.lat, this.lng]).addTo(this.map);
     });
   }
-
+/*
 private caricaAvvistamentiBackend() {
     this.avvistamentiService.getAll().subscribe({
       next: (data) => {
@@ -102,7 +111,7 @@ private caricaAvvistamentiBackend() {
       }
     });
   }
-
+*/
  private loadMarkers(avvistamenti: Avvistamento[]) {
     avvistamenti.forEach(avv => {
       const popupContent = document.createElement('div');
