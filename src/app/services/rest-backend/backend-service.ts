@@ -16,17 +16,19 @@ export class BackendService {
     responseType: 'json' as const,
   };
 
-  signin(signupCredentials: { email: string, password: string }) {
-    return this.http.post(`${this.url}/signup`, signupCredentials, this.jsonHttpOptions);
+  signup(data: { email: string; password: string; userName: string }) {
+    return this.http.post(
+      `${this.url}/signup`,
+      data,
+      this.jsonHttpOptions
+    );
   }
 
   login(loginCredentials: { email: string, password: string }) {
     return this.http.post<{ token: string }>(
       `${this.url}/login`,
       loginCredentials,
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
+      this.jsonHttpOptions
     );
   }
 

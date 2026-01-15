@@ -15,17 +15,32 @@ export class SignIn {
   email = '';
   password = '';
   error = '';
+  username = '';
 
   constructor(private backend: BackendService, private router: Router) {}
 
   onSignin() {
-//    const success = this.backend.signin(this.email, this.password);
+  this.error = '';
 
-  //  if (!success) {
-    //  this.error = 'Credenziali non valide';
-      //return;
-    //}
+  this.backend.signup({
+    email: this.email,
+    password: this.password,
+    userName: this.username
+  }).subscribe({
+    next: () => {
+      console.log('Registrazione completata');
+      this.router.navigate(['/login']); // dopo signup → vai a login
+    },
+    error: (err) => {
+      console.error('Errore signup', err);
 
-    //this.router.navigate(['/']);
-  }
+      if (err.status === 409) {
+        this.error = 'Email già registrata';
+      } else {
+        this.error = 'Errore durante la registrazione';
+      }
+    }
+  });
+}
+
 }
