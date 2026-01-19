@@ -109,6 +109,18 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.10);
 }
 
+.comment-username.clickable {
+  cursor: pointer;
+}
+
+
+.comment-username:not(.clickable) {
+  cursor: default;
+  text-decoration: none;
+}
+
+
+
 /* Header */
 .comment-header {
   display: flex;
@@ -143,7 +155,7 @@
   cursor: pointer;
 }
 
-.comment-username:hover {
+.comment-username.clickable:hover {
   text-decoration: underline;
 }
 

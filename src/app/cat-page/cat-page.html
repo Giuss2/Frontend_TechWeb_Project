@@ -31,11 +31,12 @@
       <div class="avatar">
         {{ c.User?.userName?.charAt(0) }}
       </div>
-      <span 
-        class="comment-username clickable"
-        (click)="vaiAlProfiloUtente(c.User?.id)">
-        {{ c.User?.userName }}
+      <span class="comment-username" [class.clickable]="c.User?.id !== auth.user?.id"
+        (click)="c.User?.id !== auth.user?.id && vaiAlProfiloUtente(c.User.id)">
+        {{ c.User?.id === auth.user?.id ? 'Tu' : c.User?.userName }}
       </span>
+
+
 
     </div>
     <span class="comment-date">

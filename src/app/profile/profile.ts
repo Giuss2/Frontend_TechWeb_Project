@@ -35,14 +35,13 @@ export class ProfiloComponent implements OnInit {
     return;
   }
 
-  this.caricaProfilo(authUser.id);        // 👈 BACKEND
+  this.caricaProfilo(authUser.id);
   this.caricaAvvistamentiUtente(authUser.id);
 }
 
 caricaProfilo(userId: number) {
   this.userService.getUserProfile(userId).subscribe({
     next: user => {
-      console.log('PROFILO PERSONALE DAL BACKEND 👉', user); // 👈 DEBUG
       this.user = user;
     },
     error: err => {
