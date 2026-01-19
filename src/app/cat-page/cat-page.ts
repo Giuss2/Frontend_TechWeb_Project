@@ -24,7 +24,7 @@ export class CatPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    public router: Router,
     private avvService: AvvistamentiService,
     private commentsService: CommentsService,
     public auth: AuthService,

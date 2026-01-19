@@ -58,7 +58,7 @@
     </div>
 
     <ng-template #loginMsg>
-      <p class="login-msg"><a routerLink="/login">Accedi</a> per aggiungere un commento!</p>
+      <p class="login-msg"><a  [routerLink]="['/login']" [queryParams]="{ returnUrl: router.url }">Accedi</a> per aggiungere un commento!</p>
     </ng-template>
   </div>
 </div>

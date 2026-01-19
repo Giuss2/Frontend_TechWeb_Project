@@ -15,12 +15,16 @@ export class SignIn {
   email = '';
   password = '';
   error = '';
+  success = '';
   username = '';
+  showFeedback: boolean = false;
 
   constructor(private backend: BackendService, private router: Router) {}
 
   onSignin() {
   this.error = '';
+  this.success = '';
+  this.showFeedback = false;
 
   this.backend.signup({
     email: this.email,
@@ -28,17 +32,25 @@ export class SignIn {
     userName: this.username
   }).subscribe({
     next: () => {
-      console.log('Registrazione completata');
-      this.router.navigate(['/login']); // dopo signup → vai a login
+      this.success = 'Registrazione avvenuta con successo 🎉';
+      this.showFeedback = true;
+
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 1500);
     },
     error: (err) => {
-      console.error('Errore signup', err);
-
       if (err.status === 409) {
         this.error = 'Email già registrata';
       } else {
         this.error = 'Errore durante la registrazione';
       }
+
+      this.showFeedback = true;
+
+      setTimeout(() => {
+        this.showFeedback = false;
+      }, 2500);
     }
   });
 }

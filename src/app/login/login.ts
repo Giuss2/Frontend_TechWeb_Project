@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth-service/auth-service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -13,11 +13,16 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login.scss']
 })
 export class Login {
-
-  private router = inject(Router);
-  private authService = inject(AuthService);
-  //private toastr = inject(ToastrService);
+  
+  returnUrl: string | null = null;
+  success = '';
   error= '';
+  showFeedback: boolean = false;
+
+  private route = inject(ActivatedRoute); 
+  public router = inject(Router);
+  private authService = inject(AuthService);
+  
 
   loginForm = new FormGroup({
     email: new FormControl('',
@@ -30,47 +35,43 @@ export class Login {
     ),
   })
 
-  onLogin(){
-    
-     
-
-      this.authService.login({
-        email: this.loginForm.value.email as string,
-        password: this.loginForm.value.password as string
-      })
-      .then( () =>{
-        //this.toastr.success("Logged in succesfully!", "Success");
-         this.router.navigate(["/"]);
-      })
-      .catch((error: Error) => {
-        if(error instanceof HttpErrorResponse){
-            //this.toastr.error(error.error.message);
-            this.error = error.error?.message || 'Errore di login';
-        }else{
-          this.error= 'Errore imprevisto';
-        }
-      })
-    
+   ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
   }
+
+onLogin() {
+  this.error = '';
+  this.success = '';
+  this.showFeedback = false;
+
+  this.authService.login({
+    email: this.loginForm.value.email as string,
+    password: this.loginForm.value.password as string
+  })
+  .then(() => {
+    this.success = 'Login effettuato con successo 🎉';
+    this.showFeedback = true;
+
+    setTimeout(() => {
+      if (this.returnUrl) {
+        this.router.navigateByUrl(this.returnUrl); //se hai premuto 'Accedi' per inserire un commento
+      } else {
+        this.router.navigate(['/homepage']);
+      }
+    }, 1500); // tempo visibile
+  })
+  .catch((error) => {
+    this.error = error?.error?.message || 'Errore di login';
+    this.showFeedback = true;
+
+    setTimeout(() => {
+      this.showFeedback = false;
+    }, 2500);
+  });
+}
 
   backToMap(){
     this.router.navigate(['/homepage']);
   }
-/*
-  email = '';
-  password = '';
-  error = '';
 
-  constructor(private auth: AuthService, private router: Router) {}
-
-  onLogin() {
-    const success = this.auth.login(this.email, this.password);
-
-    if (!success) {
-      this.error = 'Credenziali non valide';
-      return;
-    }
-
-    this.router.navigate(['/']);
-  }*/
 }
