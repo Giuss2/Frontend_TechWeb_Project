@@ -67,10 +67,42 @@
   border: none;
 }
 
+.btn-avv {
+  padding: 8px 12px;
+  background: #e67e22;
+  color: white;
+  border-radius: 6px;
+  border: none;
+}
+
+.actions-avv {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+
+
 .btn-small {
   padding: 4px 8px;
   background: #e67e22;
   color: white;
   border-radius: 6px;
   border: none;
+  justify-items: end;
+  margin-top: 20px;
+}
+
+//empty avvistamenti
+.empty-state {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px dashed #cfd8d3;
+  border-radius: 10px;
+  text-align: center;
+  color: #555;
+
+  p {
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
 }
