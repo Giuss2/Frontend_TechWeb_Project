@@ -43,4 +43,7 @@ export class SignIn {
   });
 }
 
+backToMap(){
+    this.router.navigate(['/homepage']);
+  }
 }

@@ -52,6 +52,10 @@ export class Login {
       })
     
   }
+
+  backToMap(){
+    this.router.navigate(['/homepage']);
+  }
 /*
   email = '';
   password = '';
