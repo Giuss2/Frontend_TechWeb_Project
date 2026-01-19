@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SignIn } from './sign-in';
+import { SignUp } from './sign-up';
 import { BackendService } from '../services/rest-backend/backend-service';
 import { Router } from '@angular/router';
 
-describe('SignIn', () => {
-  let component: SignIn;
-  let fixture: ComponentFixture<SignIn>;
+describe('SignUp', () => {
+  let component: SignUp;
+  let fixture: ComponentFixture<SignUp>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignIn],
+      imports: [SignUp],
       providers: [
         {
           provide: BackendService,
           useValue: {
-            signin: jasmine.createSpy('signin')
+            signup: jasmine.createSpy('signup')
           }
         },
         {
@@ -26,7 +26,7 @@ describe('SignIn', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SignIn);
+    fixture = TestBed.createComponent(SignUp);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

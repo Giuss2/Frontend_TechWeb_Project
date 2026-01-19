@@ -18,8 +18,8 @@ export class Navbar {
     this.router.navigate(['/login']);
   }
 
-  signin() {
-    this.router.navigate(['/signin']);
+  signup() {
+    this.router.navigate(['/signup']);
   }
 
   logout() {

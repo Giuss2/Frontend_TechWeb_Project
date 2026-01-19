@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { Homepage } from './homepage/homepage';
 import { Login } from './login/login';
 import { Logout } from './logout/logout';
-import { SignIn } from './sign-in/sign-in';
+import { SignUp } from './sign-up/sign-up';
 import { ProfiloComponent } from './profile/profile';
 import { OtherProfile } from './other-profile/other-profile';
 import { CatPage } from './cat-page/cat-page';
@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: '', component: Homepage },
   { path: 'login', component: Login },
   { path: 'logout', component: Logout },
-  { path: 'signin', component: SignIn },
+  { path: 'signup', component: SignUp },
   { path: 'profile', component: ProfiloComponent},
   { path: 'profile/:id', component: OtherProfile },
   { path: 'cat/:id', component: CatPage },

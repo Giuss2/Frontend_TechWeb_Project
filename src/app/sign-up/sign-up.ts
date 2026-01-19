@@ -6,12 +6,12 @@ import { CommonModule } from '@angular/common';
 import { BackendService } from '../services/rest-backend/backend-service';
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'app-sign-up',
   imports: [FormsModule, CommonModule],
-  templateUrl: './sign-in.html',
-  styleUrl: './sign-in.scss',
+  templateUrl: './sign-up.html',
+  styleUrl: './sign-up.scss',
 })
-export class SignIn {
+export class SignUp {
   email = '';
   password = '';
   error = '';

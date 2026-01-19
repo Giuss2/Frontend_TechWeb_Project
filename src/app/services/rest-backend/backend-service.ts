@@ -44,7 +44,7 @@ export class BackendService {
     return false;
   }
 
-  signin(email: string, password: string): boolean {
+  signup(email: string, password: string): boolean {
     // *** PER ORA È UN MOCK. AGGIUNGI LOGICA ***
     if (email === 'test@test.com' && password === '1234') {
       this.isLogged.set(true);
