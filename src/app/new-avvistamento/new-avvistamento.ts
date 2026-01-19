@@ -115,6 +115,10 @@ get messaggioErrore(): string | null {
   return null;
 }
 
+onAnnulla(){
+    this.router.navigate(['/homepage']);
+  }
+
 
 
 }
