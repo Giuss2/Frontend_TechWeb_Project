@@ -116,7 +116,7 @@ get messaggioErrore(): string | null {
 }
 
 onAnnulla(){
-    this.router.navigate(['/homepage']);
+    this.router.navigate(['/profile']);
   }
 
 

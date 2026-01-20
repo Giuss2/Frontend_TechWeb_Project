@@ -6,29 +6,6 @@
   background: #fdfdfd;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .cat-page-container {
-    padding: 16px 12px;
-  }
-}
-
-@media (max-width: 768px) {
-  .cat-details h1 {
-    text-align: center;
-    margin-top: 10px;
-  }
-}
-
-
-@media (max-width: 1366px) {
-  .cat-page-container{
-    margin-top: 30px;
-  }
-  .cat-info{
-    justify-content: center;
-  }
-}
 
 .floating-back {
   position: absolute;
@@ -260,22 +237,30 @@
 }
 
 .commenti-section {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  max-height: 55vh; // altezza della sezione
+
   border: 1px solid #e2e8e4;
-  border-radius: 10px;
+  border-radius: 12px;
+  background: #fff;
+
+  max-height: 60vh;
   overflow: hidden;
 }
+
 .commenti-section h3{
   margin-left: 20px;
 }
 
 .commenti-list {
-  overflow-y: auto; // scroll verticale solo per i commenti
-  padding: 1rem;
   flex-grow: 1;
+  overflow-y: auto;
+  padding: 12px 4px;
 }
+
 
 .new-comment textarea {
   width: 100%;
@@ -285,6 +270,7 @@
   border: 1px solid #cfd8d3;
   margin-bottom: 0.5rem;
 }
+
 
 .comment-form-wrapper {
   position: sticky;
@@ -314,10 +300,20 @@
 }
 
 @media (max-width: 768px) {
+
+ .commenti-section {
+    margin: 20px 12px;
+    max-width: none;
+    border-radius: 12px;
+  }
   .comment-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
+  }
+
+  .comment-user {
+    gap: 6px;
   }
 
   .comment-date {
@@ -326,5 +322,46 @@
 
   .comment-body {
     padding-left: 0;
+    font-size: 0.95rem;
   }
 }
+@media (max-width: 768px) {
+  .btn-send {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .cat-page-container {
+    padding: 16px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cat-details h1 {
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+
+@media (max-width: 1366px) {
+  .cat-page-container{
+    margin-top: 30px;
+    justify-items: center;
+  }
+  .cat-info{
+    justify-content: center;
+  }
+  .commenti-section {
+    max-width: none;
+    margin: 20px 12px;  
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+}
+
