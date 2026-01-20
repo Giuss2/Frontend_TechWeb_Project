@@ -39,22 +39,24 @@ button:hover {
 
 
 button.floating-back {
-  position: fixed;
+  position: abdsolute;
   top: 90px;
   left: 20px;
   z-index: 1000;
 
-  width: auto;         
+  width: auto !important    ;
   padding: 8px 12px;
   background: #7f8c8d;
   color: white;
-  font-size: 16px;
+  font-size: 16px;  //14px
 
-  border-radius: 6px;
+  border-radius: 999px;
   border: none;
   cursor: pointer;
   transition: 0.2s;
+  line-height: 1;
 }
+
 
 button.floating-back:hover {
   background: #606c70;
@@ -93,4 +95,28 @@ button.floating-back:hover {
 .feedback p {
   margin: 10px 0;
   font-size: 1.5em;
+}
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .floating-back {
+    margin-top: 20px;
+    top: 12px;
+    left: 12px;
+    bottom: auto;
+    transform: none;
+    width: auto  !important;
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 999px;
+  }
+  .feedback {
+    max-width: 90%;
+    padding: 16px 18px;
+  }
+
+  .feedback p {
+    font-size: 1.1rem;
+  }
 }

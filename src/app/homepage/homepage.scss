@@ -5,6 +5,7 @@
   height: 100vh;
 }
 
+
 app-navbar {
   flex: 0 0 auto;
   position: fixed;
@@ -17,7 +18,7 @@ app-map {
   display: flex; 
 }
 
-
+/* welcome message desktop */
 .welcome-message {
   position: fixed;
   top: 20%;
@@ -27,12 +28,13 @@ app-map {
   color: #333;
   border: 2px solid #7bb661;
   border-radius: 12px;
-  padding: 40px 50px;
+  padding: 32px;
   width: 500px;
+  max-width: 90vw;
   text-align: center;
   box-shadow: 0 6px 18px rgba(0,0,0,0.2);
   z-index: 1000;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 .welcome-message p {
@@ -54,4 +56,22 @@ app-map {
 
 .btn-ok:hover {
   background-color: #66a74f;
+}
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .welcome-message {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    padding: 20px;
+    font-size: 1rem;
+  }
+
+  .btn-ok {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+  }
 }

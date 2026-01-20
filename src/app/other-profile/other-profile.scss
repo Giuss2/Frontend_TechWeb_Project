@@ -7,23 +7,27 @@
 }
 
 .floating-back {
-  position: fixed;
-  top: 90px;  /* navbar height + margine */
+  position: absolute;
+  top: 90px;            
   left: 20px;
-  z-index: 1000; /* sopra tutto */
+  z-index: 1000;
+
   padding: 8px 12px;
   background: #7f8c8d;
   color: white;
-  border-radius: 6px;
+
+  border-radius: 999px; 
   border: none;
   cursor: pointer;
-  transition: 0.2s;
+
   font-size: 16px;
+  transition: 0.2s;
 }
 
 .floating-back:hover {
   background: #606c70;
 }
+
 
 
 .user-info {
@@ -48,33 +52,6 @@
   gap: 10px;
 }
 
-.btn-primary {
-  padding: 8px 12px;
-  background: #e67e22;
-  color: white;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.btn-primary:hover {
-  background: #d35400;
-}
-
-.btn-secondary {
-  padding: 8px 12px;
-  background: #7f8c8d;
-  color: white;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.btn-secondary:hover {
-  background: #606c70;
-}
 
 .spotting-list {
   margin-top: 20px;
@@ -119,4 +96,32 @@
 
 .btn-small:hover {
   background: #d35400;
+}
+
+
+@media (max-width: 768px) {
+  
+  .floating-back {
+    margin-top: 5px;
+    top: 12px;
+    left: 12px;
+    bottom: auto;
+    transform: none;
+    width: auto;
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 999px;
+  }
+}
+@media (max-width: 1366px) {
+
+  .profile-container{
+    margin-top: 15px;
+  }
+  .user-info{
+    justify-content: center;
+  }
+  .profile-container h1{
+    text-align: center;
+  }
 }

@@ -6,24 +6,64 @@
   background: #fdfdfd;
 }
 
+/* MOBILE */
+@media (max-width: 768px) {
+  .cat-page-container {
+    padding: 16px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cat-details h1 {
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+
+@media (max-width: 1366px) {
+  .cat-page-container{
+    margin-top: 30px;
+  }
+  .cat-info{
+    justify-content: center;
+  }
+}
+
 .floating-back {
-  position: fixed;
+  position: absolute;
   top: 90px;  /* navbar height + margine */
   left: 20px;
   z-index: 1000; /* sopra tutto */
-  padding: 8px 12px;
+  padding: 8px 12px;    //10px 14px
   background: #7f8c8d;
   color: white;
-  border-radius: 6px;
+  border-radius: 999px; //8px
   border: none;
   cursor: pointer;
   transition: 0.2s;
-  font-size: 16px;
+  font-size: 16px;  //15px
 }
 
 .floating-back:hover {
   background: #606c70;
 }
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .floating-back {
+    top: 12px;
+    left: 12px;
+    bottom: auto;
+    transform: none;
+    width: auto;
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 999px;
+  }
+}
+
 
 
 /* foto + dettagli */
@@ -33,6 +73,33 @@
   margin-bottom: 30px; 
   align-items: flex-start;
 }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .cat-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cat-photo-container {
+    flex: none;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .cat-details {
+    width: 100%;
+  }
+
+  .cat-details h1 {
+    text-align: center;
+  }
+
+  .cat-details p {
+    margin-left: 0 !important;
+  }
+}
+
 
 .cat-photo-container {
   flex: 0 0 200px;
@@ -218,19 +285,6 @@
   border: 1px solid #cfd8d3;
   margin-bottom: 0.5rem;
 }
-/*
-.btn-small {
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  background-color: #2f855a;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-small:hover {
-  background-color: #276749;
-}*/
 
 .comment-form-wrapper {
   position: sticky;
@@ -257,4 +311,20 @@
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .comment-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .comment-date {
+    font-size: 0.7rem;
+  }
+
+  .comment-body {
+    padding-left: 0;
+  }
 }

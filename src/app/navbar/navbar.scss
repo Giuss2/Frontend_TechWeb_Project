@@ -3,91 +3,86 @@
   align-items: center;
   justify-content: space-between;
   height: 80px;
-  padding: 0 24px;
+  padding: 0 24px;  //opp 0 16px se preferisci
   background: #7bb661;
-  font-size: 30px;
+  //font-size: 30px;  //questo l'ha tolto
   color: #fff;
   box-sizing: border-box;
 }
 
-/* Pulsanti Profilo/Logout */
-.profile-menu {
+
+/* logo */
+.name {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+
+/* BOTTONI */
+.profile-menu,
+.login-signup {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-right: 32px;
+  gap: 10px;
 }
 
-/* Pulsante Profilo */
-.profile-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 1.1rem;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: none;
-  border: none;
-  background-color: #66a74f;
-  transition: background-color 0.3s;
-  cursor: pointer;
-}
-
-.profile-button:hover {
-  background-color: rgba(123, 182, 97, 0.8);
-}
-
-/* Pulsante Logout */
-.logout-button {
+/* bottoni generici */
+button {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 1.1rem;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 0px;
   border: none;
+  padding: 8px 14px;
+  font-size: 1rem;
+  font-weight: 600;
   background-color: #66a74f;
-  transition: background-color 0.3s; 
+  color: #fff;
   cursor: pointer;
+  border-radius: 6px;
+  margin-right: 2px;
 }
 
-.logout-button:hover {
+/* icone */
+.profile-icon,
+.logout-icon {
+  font-size: 1.3rem;
+}
+
+/* hover */
+button:hover {
   background-color: rgba(123, 182, 97, 0.8);
 }
 
-.profile-icon, .logout-icon {
-  font-size: 1.5rem;
-  color: rgb(11, 11, 59);
-  cursor: pointer;
+@media (max-width: 768px) {
+
+.home {
+    width: 100%;
+    display: flex;
+    justify-content:right;
+    margin-bottom: 8px;
+  }
+
+  .navbar {
+    height: auto;
+    padding: 10px 12px;
+    flex-wrap: wrap;
+  }
+
+  .name {
+    font-size: 1.3rem;
+  }
+
+  .profile-menu,
+  .login-signup {
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 8px;
+  }
+
+  button {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
 }
-
-/* Pulsanti Login/Sign in */
-.login, .sign-up {
-  border: none;
-  color: #fff;
-  border-radius: 0px;
-  padding: 12px 26px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-left: 10px;
-  text-decoration: none;
-  background-color: #66a74f;
-  transition: background-color 0.3s, border-color 0.3s;
-  cursor: pointer; 
-  align-items: center;
-  gap: 6px;
-  
-}
-
-.login:hover, .sign-up:hover {
-  background-color: rgba(123, 182, 97, 0.8);
-}
-
-
