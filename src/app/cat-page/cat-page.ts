@@ -7,13 +7,14 @@ import { AuthService } from '../services/auth-service/auth-service';
 import * as showdown from 'showdown';
 import { CommentsService } from '../services/comments-service/comments-service';
 import { BackendService } from '../services/rest-backend/backend-service';
+import { Map } from '../map/map';
 
 @Component({
   selector: 'app-cat-page',
   standalone: true,
   templateUrl: './cat-page.html',
   styleUrls: ['./cat-page.scss'],
-  imports: [CommonModule, FormsModule, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule, Map]
 })
 
 export class CatPage implements OnInit {
@@ -21,6 +22,7 @@ export class CatPage implements OnInit {
   avvistamento: any = null;
   commenti: any[] = []; 
   nuovoCommento: string = ''; 
+  avvistamenti: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,14 +43,19 @@ export class CatPage implements OnInit {
   }
 
   caricaAvvistamento(id: number) {
-    this.avvService.getById(id).subscribe(res => {
-      this.avvistamento = res;
-      this.descrizioneHtml = this.converter.makeHtml(this.avvistamento.descrizione);
+  this.avvService.getById(id).subscribe(res => {
+    this.avvistamento = res;
+    this.descrizioneHtml = this.converter.makeHtml(this.avvistamento.descrizione);
 
-      // commenti fake recuperati dal service
-       this.commentsService.getByAvvistamento(id).subscribe(c => this.commenti = c);
-       });
-  }
+   
+    this.avvistamenti = [this.avvistamento];
+
+    this.commentsService
+      .getByAvvistamento(id)
+      .subscribe(c => this.commenti = c);
+  });
+}
+
 
   aggiungiCommento() {
   if (!this.auth.isLogged) {
