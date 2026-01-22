@@ -1,15 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth-service/auth-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AvvistamentiService {
+   private http = inject(HttpClient);
+  private auth = inject(AuthService);
 
   private apiUrl = 'http://localhost:3000';
-
-  constructor(private http: HttpClient) {}
 
   // Recupera tutti gli avvistamenti
   getAll(): Observable<any[]> {
@@ -42,8 +43,14 @@ export class AvvistamentiService {
 }
 
 
+  
   // Cancella un avvistamento
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/cats/${id}`);
+    const token = this.auth.user ? localStorage.getItem('token') : null;
+    const headers = token
+      ? new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+      : undefined;
+
+    return this.http.delete(`${this.apiUrl}/cats/${id}`, { headers });
   }
 }
