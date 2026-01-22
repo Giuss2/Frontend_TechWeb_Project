@@ -1,17 +1,16 @@
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { BackendService } from '../rest-backend/backend-service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CommentsService {
+  private http = inject(HttpClient);
+  private backend = inject(BackendService);
+
+  apiUrl = "http://localhost:3000";
+
   
-
-  private apiUrl = 'http://localhost:3000';
-
-  constructor(private http: HttpClient) {}
-
 // Recupera tutti i commenti di un avvistamento
 getByAvvistamento(avvistamentoId: number): Observable<any[]> {
   return this.http.get<any[]>(
@@ -36,12 +35,10 @@ create(avvistamentoId: number, testo: string): Observable<any> {
 }
 
 
-// Cancella un commento (RICHIEDE LOGIN)
-delete(id: number): Observable<any> {
-  return this.http.delete(
-    `${this.apiUrl}/comments/${id}`,
-    { withCredentials: true }
-  );
-}
-
+  // Cancella un commento passando il token JWT
+   delete(commentId: number, token: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/comments/${commentId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
 }

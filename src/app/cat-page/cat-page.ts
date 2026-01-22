@@ -95,4 +95,28 @@ export class CatPage implements OnInit {
   return `assets/cats_imgs/${foto}`;
 }
 
+eliminaCommento(commentId: number) {
+  const token = this.auth.token; 
+
+  if (!token) {
+    alert('Devi essere loggato per eliminare un commento!');
+    return;
+  }
+
+  this.commentsService.delete(commentId, token).subscribe({
+    next: () => {
+      this.commenti = this.commenti.filter(c => c.id !== commentId);
+    },
+    error: (err) => {
+      console.error('Errore eliminazione commento', err);
+      if (err.status === 401) alert('Non sei autorizzato!');
+      else if (err.status === 403) alert('Non puoi eliminare il commento di un altro utente!');
+      else alert('Errore eliminazione commento!');
+    }
+  });
+}
+
+
+
+
 }

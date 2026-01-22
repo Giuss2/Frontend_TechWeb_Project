@@ -79,5 +79,9 @@ export class AuthService {
   this._user.set(null);
 }
 
+get token(): string | null {
+  return this._token();
+}
+
 
 }

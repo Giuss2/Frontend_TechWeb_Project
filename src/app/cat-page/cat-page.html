@@ -29,7 +29,7 @@
   <h3>Commenti</h3>
 
   <div class="commenti-list">
-    <div class="commento-card" *ngFor="let c of commenti">
+  <div class="commento-card" *ngFor="let c of commenti">
   <div class="comment-header">
     <div class="comment-user">
       <div class="avatar">
@@ -39,13 +39,18 @@
         (click)="c.User?.id !== auth.user?.id && vaiAlProfiloUtente(c.User.id)">
         {{ c.User?.id === auth.user?.id ? 'Tu' : c.User?.userName }}
       </span>
-
-
-
     </div>
+
     <span class="comment-date">
       {{ c.dataInserimento | date:'dd/MM/yyyy HH:mm' }}
     </span>
+
+    <!-- Bottone elimina -->
+     <button *ngIf="c.User?.id === auth.user?.id" 
+            class="btn-small btn-delete" 
+            (click)="eliminaCommento(c.id)">
+       <i class="bi bi-trash"></i>
+    </button>
   </div>
 
   <div class="comment-body">
