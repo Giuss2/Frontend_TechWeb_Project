@@ -10,12 +10,20 @@
   <label>Aggiungi una descrizione</label>
 
   <div class="md-toolbar">
-    <button type="button" (click)="wrapSelection('**', '**')"><b>B</b></button>
-    <button type="button" (click)="wrapSelection('*', '*')" class="italic-btn">I</button>
-    <button type="button" (click)="wrapSelection('\n- ', '')">• Lista</button>
+    <button title="Grassetto (**testo**)" type="button" (click)="wrapSelection('**', '**')"><b>B</b></button>
+    <button title="Corsivo (*testo*)" type="button" (click)="wrapSelection('*', '*')" class="italic-btn">I</button>
+    <button title="Lista (- elemento)" type="button" (click)="wrapSelection('\n- ', '')">• Lista</button>
+    
+
   </div>
 
-  <textarea #descrizioneInput [(ngModel)]="descrizione" placeholder="Descrizione..."></textarea>
+  <textarea #descrizioneInput [(ngModel)]="descrizione" placeholder="Descrizione... 
+  
+**grassetto**
+*corsivo*
+- lista
+"></textarea>
+
 
   
   <label>Carica Foto</label> 
