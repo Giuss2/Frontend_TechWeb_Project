@@ -53,13 +53,8 @@ export class Map implements AfterViewInit, OnChanges {
 
   ngAfterViewInit() {
     this.initMap();
-    //this.caricaAvvistamentiBackend();
+    
     this.loadMarkers(this.avvistamenti);
-/*
-    this.avvistamentiService.getAll().subscribe(data => {
-    this.avvistamenti = data;
-    this.loadMarkers();
-  });*/
   }
 
   ngOnChanges() {
@@ -81,7 +76,6 @@ export class Map implements AfterViewInit, OnChanges {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
 
-    //this.loadMarkers();
     
     this.map.on('click', (e: L.LeafletMouseEvent) => {
       if (!this.editable) return; // se non siamo in modalità edit, esci subito
@@ -100,59 +94,75 @@ export class Map implements AfterViewInit, OnChanges {
       this.selectedMarker = L.marker([this.lat, this.lng]).addTo(this.map);
     });
   }
-/*
-private caricaAvvistamentiBackend() {
-    this.avvistamentiService.getAll().subscribe({
-      next: (data) => {
-        this.loadMarkers(data);
-      },
-      error: (err) => {
-        console.error('Errore caricamento avvistamenti', err);
+
+private loadMarkers(avvistamenti: Avvistamento[]) {
+  // Prima rimuoviamo tutti i marker esistenti
+  if (this.map) {
+    this.map.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
       }
     });
   }
-*/
- private loadMarkers(avvistamenti: Avvistamento[]) {
-    avvistamenti.forEach(avv => {
-      const popupContent = document.createElement('div');
-      popupContent.className = 'marker-tooltip';
 
-      // Immagine
-      const img = document.createElement('img');
-      if (avv.foto.startsWith('http')) {
-        img.src = avv.foto; // URL completo (example.com/...)
-      } else {
-        img.src = `assets/cats_imgs/${avv.foto}`; // file locale
-      }
+  const markers: L.Marker[] = [];
 
-      img.className = 'marker-img';
-      img.addEventListener('click', () => {
-        this.router.navigate(['/cat', avv.id]);
-      });
-      popupContent.appendChild(img);
+  avvistamenti.forEach(avv => {
+    const popupContent = document.createElement('div');
+    popupContent.className = 'marker-tooltip';
 
-      // Titolo cliccabile
-      const titleLink = document.createElement('a');
-      titleLink.textContent = avv.titolo;
-      titleLink.href = '#';
-      titleLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        this.router.navigate(['/cat', avv.id]);
-      });
-      popupContent.appendChild(titleLink);
-
-      // Data
-      const dateDiv = document.createElement('div');
-      dateDiv.className = 'marker-date';
-      const createdDate = new Date(avv.dataInserimento);
-      dateDiv.textContent = !isNaN(createdDate.getTime())
-        ? createdDate.toLocaleDateString()
-        : 'Data non disponibile';
-      popupContent.appendChild(dateDiv);
-
-      // Marker
-      const marker = L.marker([avv.lat, avv.lng]).addTo(this.map);
-      marker.bindPopup(popupContent, { autoClose: false });
+    // Immagine
+    const img = document.createElement('img');
+    
+    img.src= this.getFotoUrl(avv.foto);
+    img.className = 'marker-img';
+    img.addEventListener('click', () => {
+      this.router.navigate(['/cat', avv.id]);
     });
+    popupContent.appendChild(img);
+
+     // Titolo cliccabile
+    const titleLink = document.createElement('a');
+    titleLink.textContent = avv.titolo;
+    titleLink.href = '#';
+    titleLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.router.navigate(['/cat', avv.id]);
+    });
+    popupContent.appendChild(titleLink);
+
+    // Data
+    const dateDiv = document.createElement('div');
+    dateDiv.className = 'marker-date';
+    const createdDate = new Date(avv.dataInserimento);
+    dateDiv.textContent = !isNaN(createdDate.getTime()) ? createdDate.toLocaleDateString() : 'Data non disponibile';
+    popupContent.appendChild(dateDiv);
+
+    // Marker
+    const marker = L.marker([avv.lat, avv.lng]).addTo(this.map);
+    marker.bindPopup(popupContent, { autoClose: false });
+    markers.push(marker);
+  });
+
+  // logica per centrare la mappa
+  if (markers.length === 0) { // Nessun marker -> centra Italia
+    this.map.setView([42.5, 12.5], 6);
+  } else if (markers.length === 1) {    //UN SOLO marker (accade nelle cat pages)
+    this.map.setView([avvistamenti[0].lat, avvistamenti[0].lng], 10); // zoom ravvicinato
+  } else {  //almeno due marker in su
+    const group = L.featureGroup(markers);  
+    this.map.fitBounds(group.getBounds(), { padding: [50, 50] });
   }
+}
+
+getFotoUrl(foto: string): string {
+  // Se non c'è nessuna immagine, usa quella di default
+  if (!foto) {
+    return 'assets/cats_imgs/gatto_default.jpg';
+  }
+
+  // Altrimenti, usa sempre il file locale salvato
+  return `assets/cats_imgs/${foto}`;
+}
+
 }

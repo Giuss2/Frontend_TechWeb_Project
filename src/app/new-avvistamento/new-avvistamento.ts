@@ -73,7 +73,7 @@ wrapSelection(before: string, after: string) {
     descrizione: this.descrizione,
     lat: this.lat,
     lng: this.lng,
-    foto: this.file?.name || 'gatto_default.jpg'
+    foto: this.file?.name 
   };
 
   this.avvService.create(data).subscribe({

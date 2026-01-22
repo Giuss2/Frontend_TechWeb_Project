@@ -64,14 +64,12 @@ caricaProfilo(userId: number) {
 
 
 getFotoUrl(foto: string): string {
+  // Se non c'è nessuna immagine, usa quella di default
   if (!foto) {
     return 'assets/cats_imgs/gatto_default.jpg';
   }
 
-  if (foto.startsWith('http')) {
-    return foto;
-  }
-
+  // Altrimenti, usa sempre il file locale salvato
   return `assets/cats_imgs/${foto}`;
 }
 
