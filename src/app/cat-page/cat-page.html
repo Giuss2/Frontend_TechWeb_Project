@@ -11,11 +11,12 @@
       <p [innerHTML]="descrizioneHtml" style="margin-left: 2em;"></p>
       <p><strong>Posizione: </strong> Lat: {{ avvistamento.lat }}, Lng: {{ avvistamento.lng }}</p>
       <p><strong>Avvistato il: </strong>{{ avvistamento.dataInserimento | date:'dd/MM/yyyy HH:mm' }}</p>
-      <p><strong>Utente: </strong>
-        <button class="btn-small" (click)="vaiAlProfiloUtente(avvistamento.userId)">
-          Profilo utente
-        </button>
+      <p><strong>Profilo dell'autore:</strong>
+        <a class="author-link" [routerLink]="['/profile', avvistamento.userId]">
+          {{ avvistamento.User?.userName || 'Autore' }}
+        </a>
       </p>
+
     </div>
   </div>
   <app-map class="cat-map-wrapper" [avvistamenti]="avvistamenti"></app-map>

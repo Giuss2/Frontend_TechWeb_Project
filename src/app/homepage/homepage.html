@@ -1,4 +1,8 @@
 
+
+<!-- Overlay -->
+<div class="overlay" *ngIf="showWelcomeMessage()"></div>
+
 <!-- Messaggio di benvenuto -->
 <div class="welcome-message" *ngIf="showWelcomeMessage()">
   <p>
@@ -15,6 +19,5 @@
   [avvistamenti]="avvistamenti"
   (markerClick)="apriCatPage($event)">
 </app-map>
-
 
 

@@ -103,17 +103,18 @@
   margin: 5px 0;
 }
 
-.btn-small {
-  padding: 4px 8px;
-  background: #e67e22; 
-  color: white;
-  border-radius: 6px;
-  border: none;
+.author-link {
+  color: #7bb661; 
+  text-decoration: underline;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
-  height: 30px;
-  
+  margin-left: 0.3em;
 }
+
+.author-link:hover {
+  color: #66a74f;
+}
+
 
 .btn-send{
   padding: 4px 8px;
@@ -127,9 +128,6 @@
   font-size: 18px;
 }
 
-.btn-small:hover {
-  background-color: #d35400;
-}
 
 
 .btn-send:hover {

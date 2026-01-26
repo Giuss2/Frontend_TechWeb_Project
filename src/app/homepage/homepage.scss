@@ -1,3 +1,12 @@
+/* Overlay che blocca i click sulla mappa */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* puoi anche metterlo trasparente */
+  z-index: 999;
+}
+
+
 
 :host {
   display: flex;
