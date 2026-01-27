@@ -8,6 +8,7 @@ import * as showdown from 'showdown';
 import { CommentsService } from '../services/comments-service/comments-service';
 import { BackendService } from '../services/rest-backend/backend-service';
 import { Map } from '../map/map';
+import DOMPurify from 'dompurify';
 
 @Component({
   selector: 'app-cat-page',
@@ -33,7 +34,10 @@ export class CatPage implements OnInit {
     public backend: BackendService
   ) {}
 
-  converter = new showdown.Converter();
+  converter = new showdown.Converter({
+    simpleLineBreaks: true,
+    openLinksInNewWindow: true
+  });
   descrizioneHtml: string = '';
 
 
@@ -45,8 +49,10 @@ export class CatPage implements OnInit {
   caricaAvvistamento(id: number) {
   this.avvService.getById(id).subscribe(res => {
     this.avvistamento = res;
-    this.descrizioneHtml = this.converter.makeHtml(this.avvistamento.descrizione);
+    const rawHtml = this.converter.makeHtml(this.avvistamento.descrizione);
 
+    //sanificazione
+    this.descrizioneHtml = DOMPurify.sanitize(rawHtml);
    
     this.avvistamenti = [this.avvistamento];
 
