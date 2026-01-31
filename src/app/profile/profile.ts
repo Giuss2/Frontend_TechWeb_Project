@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
@@ -11,7 +10,7 @@ import { UserService } from '../services/user-service/user-service';
   standalone: true,
   templateUrl: "./profile.html",
   styleUrls: ['./profile.scss'],
-  imports: [HttpClientModule, CommonModule]
+  imports: [CommonModule]
 })
 
 export class ProfiloComponent implements OnInit {
