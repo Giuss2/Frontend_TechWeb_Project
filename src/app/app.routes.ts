@@ -7,6 +7,7 @@ import { ProfiloComponent } from './profile/profile';
 import { OtherProfile } from './other-profile/other-profile';
 import { CatPage } from './cat-page/cat-page';
 import { NewAvvistamento } from './new-avvistamento/new-avvistamento';
+import { authorizationGuard } from './guards/authorization-guard';
 
 export const routes: Routes = [
   { path: '', component: Homepage },
@@ -14,8 +15,8 @@ export const routes: Routes = [
   { path: 'logout', component: Logout },
   { path: 'signup', component: SignUp },
   { path: 'profile', component: ProfiloComponent},
-  { path: 'profile/:id', component: OtherProfile },
+  { path: 'profile/:id', component: OtherProfile, canActivate: [authorizationGuard]},
   { path: 'cat/:id', component: CatPage },
-  { path: 'create-avvistamento', component: NewAvvistamento },
+  { path: 'create-avvistamento', component: NewAvvistamento, canActivate: [authorizationGuard] },
   { path: '**', redirectTo: '' } // wildcard, redirect alla home se URL non trovato
 ];
