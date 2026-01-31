@@ -1,8 +1,7 @@
-import { Component, signal, OnInit, effect, inject } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
-import { BackendService } from '../services/rest-backend/backend-service';
 import { Map } from '../map/map';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 
