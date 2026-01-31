@@ -5,8 +5,8 @@ test('Test paginazione commenti con mock', async ({ page }) => {
   // Intercetta la chiamata ai commenti e restituisce 50 commenti finti
   await page.route('**/cats/1/comments**', route => {
     const url = new URL(route.request().url());
-    const pageNum = Number(url.searchParams.get('page')) || 1;
-    const limit = Number(url.searchParams.get('limit')) || 5;
+    const pageNum = Number(url.searchParams.get('page'));
+    const limit = Number(url.searchParams.get('limit'));
 
     const totalComments = 50;
     const allComments = Array.from({ length: totalComments }, (_, i) => ({

@@ -96,7 +96,7 @@ export class Map implements AfterViewInit, OnChanges {
   }
 
 private loadMarkers(avvistamenti: Avvistamento[]) {
-  const queryParams = { page: 1, limit: 5 };
+  const queryParams = { page: 1, limit: 25 };
 
   // Prima rimuoviamo tutti i marker esistenti
   if (this.map) {

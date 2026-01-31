@@ -27,12 +27,12 @@ export class CatPage implements OnInit {
   page: number;
   limit: number;
   totalPages: number;
-} = { total: 0, page: 1, limit: 5, totalPages: 0 };
+} = { total: 0, page: 1, limit: 25, totalPages: 0 };
 
   nuovoCommento: string = ''; 
   avvistamenti: any[] = [];
   page: number = 1;
-  limit: number = 5;
+  limit: number = 25;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,8 +52,8 @@ export class CatPage implements OnInit {
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-      this.page = Number(this.route.snapshot.queryParamMap.get('page')) || 1;
-      this.limit = Number(this.route.snapshot.queryParamMap.get('limit')) || 5;
+      this.page = Number(this.route.snapshot.queryParamMap.get('page'));
+      this.limit = Number(this.route.snapshot.queryParamMap.get('limit'));
 
     this.caricaAvvistamento(id);
     
@@ -150,7 +150,7 @@ loadComments(page: number) {
     return;
   }
 
-  this.commentsService.getByAvvistamento(this.avvistamento.id, page, 5)
+  this.commentsService.getByAvvistamento(this.avvistamento.id, page, this.limit)
     .subscribe({
       next: res => {
       this.commenti = res.comments;
