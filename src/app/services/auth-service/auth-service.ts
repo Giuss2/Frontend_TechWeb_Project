@@ -19,13 +19,30 @@ export class AuthService {
   private _user = signal<{ id: number; userName: string } | null>(null);
 
   constructor() {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
-    if (token) {
-      this._token.set(token);
-      this._setUserFromToken(token);
+  if (!token) return;
+
+  try {
+    const decoded = jwtDecode<TokenPayload>(token);
+
+    if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+      // token scaduto
+      this.logout();
+      return;
     }
+
+    this._token.set(token);
+    this._user.set({
+      id: decoded.id,
+      userName: decoded.userName
+    });
+
+  } catch {
+    this.logout();
   }
+}
+
 
   private _setUserFromToken(token: string) {
     try {

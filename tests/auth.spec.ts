@@ -41,3 +41,28 @@ test('navbar mostra Profilo e Logout se loggato', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Login' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Sign-in' })).toHaveCount(0);
 });
+
+test('utente con token scaduto viene trattato come non loggato', async ({ page }) => {
+  await page.addInitScript(() => {
+    const expiredPayload = {
+      id: 1,
+      userName: 'test',
+      exp: Math.floor(Date.now() / 1000) - 60 // scaduto 1 min fa
+    };
+
+    const base64 = (obj: object) =>
+      btoa(JSON.stringify(obj))
+        .replace(/=/g, '')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_');
+
+    const token = `${base64({ alg: 'HS256', typ: 'JWT' })}.${base64(expiredPayload)}.fake`;
+
+    localStorage.setItem('token', token);
+  });
+
+  await page.goto('/');
+
+  await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Profilo' })).toHaveCount(0);
+});
