@@ -61,6 +61,15 @@
 
   </div>
 
+
+<div class="commenti-pagination" *ngIf="pagination?.totalPages && pagination.totalPages > 1">
+  <button (click)="prevPage()" [disabled]="pagination?.page === 1">&#x2B05; Precedente</button>
+  <span>{{ pagination?.page }} / {{ pagination?.totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="pagination?.page === pagination?.totalPages">Successivo &#x27A1;</button>
+</div>
+
+
+
   <div class="comment-form-wrapper">
     <div class="new-comment" *ngIf="auth.isLogged; else loginMsg">
       <textarea [(ngModel)]="nuovoCommento" placeholder="Scrivi un commento..."></textarea>

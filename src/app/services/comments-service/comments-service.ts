@@ -12,9 +12,9 @@ export class CommentsService {
 
   
 // Recupera tutti i commenti di un avvistamento
-getByAvvistamento(avvistamentoId: number): Observable<any[]> {
-  return this.http.get<any[]>(
-    `${this.apiUrl}/cats/${avvistamentoId}/comments`,
+getByAvvistamento(avvistamentoId: number, page = 1, limit = 5) {
+  return this.http.get<{comments: any[], pagination: any}>(
+    `${this.apiUrl}/cats/${avvistamentoId}/comments?page=${page}&limit=${limit}`,
     { withCredentials: true }
   );
 }

@@ -96,6 +96,8 @@ export class Map implements AfterViewInit, OnChanges {
   }
 
 private loadMarkers(avvistamenti: Avvistamento[]) {
+  const queryParams = { page: 1, limit: 5 };
+
   // Prima rimuoviamo tutti i marker esistenti
   if (this.map) {
     this.map.eachLayer((layer) => {
@@ -111,13 +113,13 @@ private loadMarkers(avvistamenti: Avvistamento[]) {
     const popupContent = document.createElement('div');
     popupContent.className = 'marker-tooltip';
 
-    // Immagine
+    // Immagine Cliccabile
     const img = document.createElement('img');
     
     img.src= this.getFotoUrl(avv.foto);
     img.className = 'marker-img';
     img.addEventListener('click', () => {
-      this.router.navigate(['/cat', avv.id]);
+      this.router.navigate(['/cat', avv.id], { queryParams });
     });
     popupContent.appendChild(img);
 
@@ -127,7 +129,8 @@ private loadMarkers(avvistamenti: Avvistamento[]) {
     titleLink.href = '#';
     titleLink.addEventListener('click', (event) => {
       event.preventDefault();
-      this.router.navigate(['/cat', avv.id]);
+      
+      this.router.navigate(['/cat', avv.id], { queryParams });
     });
     popupContent.appendChild(titleLink);
 

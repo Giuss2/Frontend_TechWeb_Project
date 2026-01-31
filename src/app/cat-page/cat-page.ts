@@ -22,8 +22,17 @@ export class CatPage implements OnInit {
 
   avvistamento: any = null;
   commenti: any[] = []; 
+  pagination: {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+} = { total: 0, page: 1, limit: 5, totalPages: 0 };
+
   nuovoCommento: string = ''; 
   avvistamenti: any[] = [];
+  page: number = 1;
+  limit: number = 5;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +52,11 @@ export class CatPage implements OnInit {
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+      this.page = Number(this.route.snapshot.queryParamMap.get('page')) || 1;
+      this.limit = Number(this.route.snapshot.queryParamMap.get('limit')) || 5;
+
     this.caricaAvvistamento(id);
+    this.loadComments(id);
   }
 
   caricaAvvistamento(id: number) {
@@ -58,7 +71,10 @@ export class CatPage implements OnInit {
 
     this.commentsService
       .getByAvvistamento(id)
-      .subscribe(c => this.commenti = c);
+      .subscribe(res => {
+    this.commenti = res.comments; 
+    this.pagination = res.pagination;  
+  });
   });
 }
 
@@ -92,7 +108,7 @@ export class CatPage implements OnInit {
     return 'assets/cats_imgs/placeholder.jpg';
   }
 
-  // se è già un URL completo (https://...)
+  // se è già un URL completo 
   if (foto.startsWith('http')) {
     return foto;
   }
@@ -122,6 +138,30 @@ eliminaCommento(commentId: number) {
   });
 }
 
+loadComments(page: number) {
+  if (!this.avvistamento || !this.avvistamento.id) {
+    console.warn('Avvistamento non disponibile, skipping loadComments');
+    return;
+  }
+
+  this.commentsService.getByAvvistamento(this.avvistamento.id, page, 5)
+    .subscribe(res => {
+      this.commenti = res.comments;
+      this.pagination = res.pagination;
+    });
+}
+
+prevPage() {
+  if (this.pagination?.page && this.pagination.page > 1) {
+    this.loadComments(this.pagination.page - 1);
+  }
+}
+
+nextPage() {
+  if (this.pagination?.page && this.pagination.page < (this.pagination?.totalPages ?? 1)) {
+    this.loadComments(this.pagination.page + 1);
+  }
+}
 
 
 
