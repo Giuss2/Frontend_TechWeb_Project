@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -34,14 +34,13 @@ export class CatPage implements OnInit {
   page: number = 1;
   limit: number = 25;
 
-  constructor(
-    private route: ActivatedRoute,
-    public router: Router,
-    private avvService: AvvistamentiService,
-    private commentsService: CommentsService,
-    public auth: AuthService,
-    public backend: BackendService
-  ) {}
+  private route = inject(ActivatedRoute); 
+  public router = inject(Router);
+  public auth = inject(AuthService);
+  private avvService= inject(AvvistamentiService);
+  private commentsService= inject(CommentsService);
+  public backend= inject(BackendService);
+
 
   converter = new showdown.Converter({
     simpleLineBreaks: true,

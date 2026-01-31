@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { CommonModule } from '@angular/common';
@@ -20,12 +20,11 @@ export class OtherProfile implements OnInit {
   error= '';
   loading: boolean = true;
 
-  constructor(
-    private router: Router,
-    private avvService: AvvistamentiService,
-    private route: ActivatedRoute,
-    private userService: UserService,
-  ) {}
+  private route = inject(ActivatedRoute); 
+  private router = inject(Router);
+  private avvService= inject(AvvistamentiService);
+  private userService= inject(UserService);
+
 
     ngOnInit() {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));

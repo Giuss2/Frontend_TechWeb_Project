@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { CommonModule } from '@angular/common';
-import { BackendService } from '../services/rest-backend/backend-service';
 import { UserService } from '../services/user-service/user-service';
 
 @Component({
@@ -20,12 +19,12 @@ export class ProfiloComponent implements OnInit {
   user: any; 
   avvistamenti: any[] = [];
 
-  constructor(
-    private auth: AuthService,
-    private avvService: AvvistamentiService,
-    private router: Router,
-    private userService: UserService
-  ) {}
+  
+  private router = inject(Router);
+  private auth = inject(AuthService);
+  private avvService= inject(AvvistamentiService);
+  private userService= inject(UserService);
+
 
   ngOnInit() {
   const authUser = this.auth.user;

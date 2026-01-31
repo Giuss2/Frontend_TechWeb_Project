@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../services/auth-service/auth-service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -12,7 +12,11 @@ import { BackendService } from '../services/rest-backend/backend-service';
   styleUrls: ['./navbar.scss']
 })
 export class Navbar {
-  constructor(public auth: AuthService, private router: Router, public backend: BackendService) {}
+
+  private router = inject(Router);
+  public auth = inject(AuthService);
+  public backend= inject(BackendService);
+
 
   login() {
     this.router.navigate(['/login']);

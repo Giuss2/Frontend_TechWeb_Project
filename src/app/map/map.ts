@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Input, Output, EventEmitter, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 import { Router } from '@angular/router';
-import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
 import { OnChanges } from '@angular/core';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -34,10 +33,8 @@ export interface Avvistamento {
 })
 
 export class Map implements AfterViewInit, OnChanges {
-   constructor(
-    private avvistamentiService: AvvistamentiService,
-    private router: Router
-  ) {}
+
+  private router= inject(Router);
   
   private selectedMarker?: L.Marker;
   @Input() editable: boolean = false;

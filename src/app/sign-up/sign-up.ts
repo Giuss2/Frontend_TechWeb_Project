@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth-service/auth-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BackendService } from '../services/rest-backend/backend-service';
@@ -19,7 +18,10 @@ export class SignUp {
   username = '';
   showFeedback: boolean = false;
 
-  constructor(private backend: BackendService, private router: Router) {}
+
+  private router = inject(Router);
+  private backend= inject(BackendService);
+
 
   onSignin() {
   this.error = '';

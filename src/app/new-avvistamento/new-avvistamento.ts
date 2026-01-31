@@ -1,11 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvvistamentiService } from '../services/avvistamenti-service/avvistamenti-service';
-import { AuthService } from '../services/auth-service/auth-service';
 import { Avvistamento, Map } from '../map/map';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BackendService } from '../services/rest-backend/backend-service';
 
 @Component({
   selector: 'app-new-avvistamento',
@@ -22,6 +20,12 @@ export class NewAvvistamento {
   lng: number = 0;
   avvistamenti: Avvistamento[] = [];
 
+    
+  private router = inject(Router);
+  private avvService= inject(AvvistamentiService);
+
+
+
 ngOnInit() {
   this.avvService.getAll().subscribe({
     next: (data) => {
@@ -30,12 +34,6 @@ ngOnInit() {
     error: (err) => console.error('Errore caricamento avvistamenti', err)
   });
 }
-
-
-  constructor(
-    private avvService: AvvistamentiService,
-    private router: Router,
-  ) {}
 
 
 @ViewChild('descrizioneInput') descrizioneInput!: ElementRef<HTMLTextAreaElement>;

@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, effect } from '@angular/core';
+import { Component, signal, OnInit, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth-service';
@@ -17,12 +17,12 @@ export class Homepage {
   showWelcomeMessage = signal(false);
   avvistamenti: any[] = [];
 
-  constructor(
-    private router: Router,
-    public auth: AuthService,
-    public backend: BackendService,
-    public avvService: AvvistamentiService
-  ) {}
+  
+  
+  private router = inject(Router);
+  public auth = inject(AuthService);
+  public avvService= inject(AvvistamentiService);
+  
 
   ngOnInit() {
     const lastSeenDate = localStorage.getItem('welcomeLastSeen');
