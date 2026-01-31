@@ -3,9 +3,8 @@
   align-items: center;
   justify-content: space-between;
   height: 80px;
-  padding: 0 24px;  //opp 0 16px se preferisci
+  padding: 0 24px;  
   background: #7bb661;
-  //font-size: 30px;  //questo l'ha tolto
   color: #fff;
   box-sizing: border-box;
 }
@@ -48,7 +47,7 @@ button {
   font-size: 1.3rem;
 }
 
-/* hover */
+
 button:hover {
   background-color: rgba(123, 182, 97, 0.8);
 }

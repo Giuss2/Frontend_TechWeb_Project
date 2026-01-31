@@ -8,7 +8,7 @@ beforeEach(async () => {
   await TestBed.configureTestingModule({
     imports: [
       AppComponent,
-      RouterTestingModule   // 🔴 QUESTO È FONDAMENTALE
+      RouterTestingModule   
     ],
     providers: [
       {

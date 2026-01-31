@@ -19,7 +19,7 @@ getByAvvistamento(avvistamentoId: number, page = 1, limit = 25) {
   );
 }
 
-// Aggiunge un nuovo commento (RICHIEDE LOGIN)
+// Aggiunge un nuovo commento 
 create(avvistamentoId: number, testo: string): Observable<any> {
   const token = localStorage.getItem('token');
 
@@ -35,7 +35,7 @@ create(avvistamentoId: number, testo: string): Observable<any> {
 }
 
 
-  // Cancella un commento passando il token JWT
+  // Cancella un commento 
    delete(commentId: number, token: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/comments/${commentId}`, {
       headers: { Authorization: `Bearer ${token}` }

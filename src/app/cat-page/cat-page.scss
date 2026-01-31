@@ -12,14 +12,14 @@
   top: 90px;  /* navbar height + margine */
   left: 20px;
   z-index: 1000; /* sopra tutto */
-  padding: 8px 12px;    //10px 14px
+  padding: 8px 12px;    
   background: #7f8c8d;
   color: white;
-  border-radius: 999px; //8px
+  border-radius: 999px; 
   border: none;
   cursor: pointer;
   transition: 0.2s;
-  font-size: 16px;  //15px
+  font-size: 16px; 
 }
 
 .floating-back:hover {
@@ -162,8 +162,6 @@
 }
 
 
-
-/* Header */
 .comment-header {
   display: flex;
   justify-content: space-between;
@@ -285,7 +283,6 @@
 }
 
 .comment-form-wrapper .login-msg {
-  //background-color: #7bb661; 
   color: black;
   margin: 0;
   display: block;
