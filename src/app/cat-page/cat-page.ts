@@ -56,7 +56,7 @@ export class CatPage implements OnInit {
       this.limit = Number(this.route.snapshot.queryParamMap.get('limit')) || 5;
 
     this.caricaAvvistamento(id);
-    this.loadComments(id);
+    
   }
 
   caricaAvvistamento(id: number) {
