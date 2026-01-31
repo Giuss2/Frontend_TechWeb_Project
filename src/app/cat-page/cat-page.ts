@@ -60,22 +60,25 @@ export class CatPage implements OnInit {
   }
 
   caricaAvvistamento(id: number) {
-  this.avvService.getById(id).subscribe(res => {
+  this.avvService.getById(id).subscribe({
+  next: res => {
     this.avvistamento = res;
     const rawHtml = this.converter.makeHtml(this.avvistamento.descrizione);
-
-    //sanificazione
+    //sanitificazione
     this.descrizioneHtml = DOMPurify.sanitize(rawHtml);
-   
     this.avvistamenti = [this.avvistamento];
 
-    this.commentsService
-      .getByAvvistamento(id)
-      .subscribe(res => {
-    this.commenti = res.comments; 
-    this.pagination = res.pagination;  
-  });
-  });
+    this.commentsService.getByAvvistamento(id).subscribe({
+      next: res => {
+        this.commenti = res.comments;
+        this.pagination = res.pagination;
+      },
+      error: err => console.error('Errore caricamento commenti', err)
+    });
+  },
+  error: err => console.error('Errore caricamento avvistamento', err)
+});
+
 }
 
 
@@ -90,7 +93,10 @@ export class CatPage implements OnInit {
     if(!user) return;
     
     this.commentsService.create(this.avvistamento.id, this.nuovoCommento)
-    .subscribe(nuovo => this.commenti.unshift(nuovo));  //il nuovo commento viene mostrato all'inizio
+    .subscribe({
+      next: nuovo => this.commenti.unshift(nuovo), //il nuovo commento viene mostrato all'inizio
+      error: err => console.error('Errore aggiunta commento', err)
+    });  
 
     this.nuovoCommento = '';
   }
@@ -145,10 +151,13 @@ loadComments(page: number) {
   }
 
   this.commentsService.getByAvvistamento(this.avvistamento.id, page, 5)
-    .subscribe(res => {
+    .subscribe({
+      next: res => {
       this.commenti = res.comments;
       this.pagination = res.pagination;
-    });
+    },
+    error: err => console.error('Errore caricamento commenti pagina', err)
+});
 }
 
 prevPage() {
