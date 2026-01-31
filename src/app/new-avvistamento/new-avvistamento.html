@@ -5,7 +5,8 @@
   <h2>Nuovo Avvistamento</h2>
 
   <label>Titolo</label>
-  <input [(ngModel)]="titolo" placeholder="Titolo della pagina del gatto">
+  <input [(ngModel)]="titolo" placeholder="Titolo della pagina del gatto" maxlength="50">
+  <p class="small-text">{{ titolo.length }}/50 caratteri</p>
 
   <label>Aggiungi una descrizione</label>
 

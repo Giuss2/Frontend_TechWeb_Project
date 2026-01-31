@@ -91,6 +91,7 @@ wrapSelection(before: string, after: string) {
 get formValido(): boolean {
   return (
     this.titolo.trim().length > 0 &&
+    this.titolo.trim().length <= 50 &&
     this.descrizione.trim().length > 0 &&
     this.lat !== 0 &&
     this.lng !== 0 
@@ -101,6 +102,10 @@ get formValido(): boolean {
 get messaggioErrore(): string | null {
   if (!this.titolo.trim()) {
     return 'Inserisci un titolo';
+  }
+
+  if (this.titolo.trim().length > 50) {
+    return 'Il titolo non può superare 50 caratteri';
   }
 
   if (!this.descrizione.trim()) {
