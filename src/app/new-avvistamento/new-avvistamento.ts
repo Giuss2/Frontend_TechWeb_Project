@@ -91,6 +91,7 @@ get formValido(): boolean {
     this.titolo.trim().length > 0 &&
     this.titolo.trim().length <= 50 &&
     this.descrizione.trim().length > 0 &&
+    this.descrizione.trim().length <= 1000 &&
     this.lat !== 0 &&
     this.lng !== 0 
     //this.file !== null
@@ -109,6 +110,8 @@ get messaggioErrore(): string | null {
   if (!this.descrizione.trim()) {
     return 'Inserisci una descrizione';
   }
+
+  if (this.descrizione.trim().length > 1000) return 'La descrizione non può superare 1000 caratteri';
 
   if (this.lat === 0 || this.lng === 0) {
     return 'Seleziona una posizione sulla mappa';

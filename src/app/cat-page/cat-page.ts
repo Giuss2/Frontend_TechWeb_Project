@@ -81,13 +81,19 @@ export class CatPage implements OnInit {
 }
 
 
-  aggiungiCommento() {
+aggiungiCommento() {
   if (!this.auth.isLogged) {
     this.router.navigate(['/login']);
     return;
   }
 
     if (!this.nuovoCommento.trim()) return;
+
+  if (this.nuovoCommento.length > 500) {
+    alert('Il commento non può superare 500 caratteri');
+    return;
+  }
+
     const user = this.auth.user;
     if(!user) return;
     

@@ -72,7 +72,7 @@
 
   <div class="comment-form-wrapper">
     <div class="new-comment" *ngIf="auth.isLogged; else loginMsg">
-      <textarea [(ngModel)]="nuovoCommento" placeholder="Scrivi un commento..."></textarea>
+      <textarea [(ngModel)]="nuovoCommento" placeholder="Scrivi un commento..." maxlength="500"></textarea>
       <button class="btn-send" (click)="aggiungiCommento()">Invia ➤</button>
     </div>
 
