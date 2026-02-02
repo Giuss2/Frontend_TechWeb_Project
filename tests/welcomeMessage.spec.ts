@@ -1,92 +1,70 @@
 import { test, expect } from '@playwright/test';
 
+test.describe('Welcome message behavior', () => {
 
-test.describe('Welcome message daily behavior', () => {
-
+  // Pulisce localStorage prima di ogni test 
   test.beforeEach(async ({ page }) => {
-    // Pulisce localStorage prima di ogni test
-    await page.addInitScript(() => {
-      localStorage.clear();
-    });
+    await page.addInitScript(() => localStorage.clear());
   });
 
   test('mostra welcome al primo accesso del giorno se non loggato', async ({ page }) => {
-  await page.addInitScript(() => {
-    const fakeToday = new Date(2027, 0, 15).valueOf();
-    Date.now = () => fakeToday;
-    localStorage.clear();
+    
+    await page.goto('/');
+
+    await expect(page.getByText('Benvenuto su STREETCATS')).toBeVisible();
+
+    await page.getByText('OK').click();
   });
 
-  await page.goto('/');
+  test('mostra di nuovo welcome il giorno successivo se non loggato', async ({ page }) => {
+  // Primo giorno
+  const day1 = new Date(2027, 0, 15).valueOf();
 
+  await page.addInitScript(day => {
+    (window as any)._originalDateNow = Date.now;
+    Date.now = () => day;
+    localStorage.clear();
+  }, day1);
+
+  // Naviga alla homepage per primo giorno
+  await page.goto('/');
   await expect(page.getByText('Benvenuto su STREETCATS')).toBeVisible();
-});
-
-
-test('mostra di nuovo welcome il giorno successivo se non loggato', async ({ page }) => {
-  await page.addInitScript(() => {
-    const day1 = new Date(2026, 0, 15).valueOf();
-    Date.now = () => day1;
-    localStorage.clear();
-  });
-
-  await page.goto('/');
   await page.getByText('OK').click();
 
-  await page.addInitScript(() => {
-    const day2 = new Date(2026, 0, 16).valueOf();
-    Date.now = () => day2;
-  });
+  // Secondo giorno
+  const day2 = new Date(2027, 0, 16).valueOf();
 
+  await page.addInitScript(day => {
+    Date.now = () => day;
+  }, day2);
+
+  // Naviga di nuovo alla homepage
   await page.goto('/');
-
   await expect(page.getByText('Benvenuto su STREETCATS')).toBeVisible();
+
+  // Ripristina Date.now originale
+  await page.addInitScript(() => {
+    if ((window as any)._originalDateNow) {
+      Date.now = (window as any)._originalDateNow;
+      delete (window as any)._originalDateNow;
+    }
+  });
 });
 
-function createFakeJwt(payload: object) {
-  const base64 = (obj: object) =>
-    btoa(JSON.stringify(obj))
-      .replace(/=/g, '')
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_');
+  test('non mostra welcome se loggato', async ({ page }) => {
+    // Login
+    await page.goto('/login');
+    await page.fill('input[formControlName="email"]', 'giusy@example.com');
+    await page.fill('input[formControlName="password"]', '1234');
+    await page.click('button[type="submit"]');
 
-  return `${base64({ alg: 'HS256', typ: 'JWT' })}.${base64(payload)}.fake-signature`;
-}
+    // Aspetta che la navbar si aggiorni
+    await expect(page.getByRole('button', { name: 'Profilo' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Logout' })).toBeVisible();
 
-test('non mostra welcome se loggato', async ({ page }) => {
-  await page.addInitScript(() => {
-    const fakeNow = new Date(2026, 0, 15).valueOf();
-    Date.now = () => fakeNow;
+    await page.waitForURL('/');
 
-    localStorage.clear();
-
-    const payload = {
-      id: 1,
-      userName: 'test',
-      exp: Math.floor(fakeNow / 1000) + 60 * 60 // +1 ora
-    };
-
-    const base64 = (obj: Record<string, unknown>) =>
-      btoa(JSON.stringify(obj))
-        .replace(/=/g, '')
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_');
-
-    const token = `${base64({ alg: 'HS256', typ: 'JWT' })}.${base64(payload)}.fake`;
-
-    localStorage.setItem('token', token);
+    await expect(page.getByText('Benvenuto su STREETCATS')).toHaveCount(0);
   });
 
-  await page.goto('/');
-
-  await expect(page.getByText('Benvenuto su STREETCATS')).toHaveCount(0);
 });
-
-});
-
-//COME LANCIARE UN TEST:
-// npx playwright test
-//npx playwright test --ui se vuoi la UI
-
-//PER LANCIARE UN TEST SPECIFICO:
-//npx playwright test tests/welcomeMessage.spec.ts

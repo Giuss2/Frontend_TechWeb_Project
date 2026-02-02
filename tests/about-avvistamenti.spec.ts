@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe.serial('Gestione Avvistamenti utente (E2E reale con Giusy)', () => {
+test.describe.serial('Gestione Avvistamenti utente', () => {
   const createdTitle = 'Test Gatto Profilo';
 
 test.beforeEach(async ({ page }) => {
@@ -44,7 +44,7 @@ test.beforeEach(async ({ page }) => {
     await expect(spottingCard).toBeVisible();
   });
 
-  test('elimina l\'avvistamento appena creato', async ({ page }) => {
+  test('elimina avvistamento appena creato', async ({ page }) => {
 
     const spottingCard = page.locator(`.spotting-card:has-text("${createdTitle}")`);
     await expect(spottingCard).toBeVisible();

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Login E2E', () => {
+test.describe('Login', () => {
 
   test.beforeEach(async ({ page }) => {
     // Pulisce eventuali token salvati
@@ -14,7 +14,6 @@ test.describe('Login E2E', () => {
     await page.fill('input[formControlName="email"]', 'mario@example.com');
     await page.fill('input[formControlName="password"]', '1234');
 
-    // Clicca submit
     await page.click('button[type="submit"]');
 
     // Aspetta che la navbar mostri Profilo e Logout
