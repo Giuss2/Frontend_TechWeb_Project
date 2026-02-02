@@ -10,5 +10,5 @@
   },
   "include": [
     "src/**/*.ts"
-, "tests/pagination.spec.ts"  ]
+, "tests/comments.spec.ts", "tests/about-avvistamenti.spec.ts"  ]
 }

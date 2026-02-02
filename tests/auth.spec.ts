@@ -1,68 +1,72 @@
 import { test, expect } from '@playwright/test';
 
-test('navbar mostra Login/Sign in se non loggato', async ({ page }) => {
-  await page.addInitScript(() => {
-    localStorage.clear();
+test.describe('Login E2E', () => {
+
+  test.beforeEach(async ({ page }) => {
+    // Pulisce eventuali token salvati
+    await page.addInitScript(() => localStorage.clear());
+    await page.goto('/login');
+    
   });
 
-  await page.goto('/');
+  test('login con credenziali corrette', async ({ page }) => {
+    // Compila il form
+    await page.fill('input[formControlName="email"]', 'mario@example.com');
+    await page.fill('input[formControlName="password"]', '1234');
 
-  await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Sign-in' })).toBeVisible();
+    // Clicca submit
+    await page.click('button[type="submit"]');
 
-  await expect(page.getByRole('button', { name: 'Logout' })).toHaveCount(0);
-  await expect(page.getByRole('button', { name: 'Profilo' })).toHaveCount(0);
-});
+    // Aspetta che la navbar mostri Profilo e Logout
+    await expect(page.getByRole('button', { name: 'Profilo' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Logout' })).toBeVisible();
 
-test('navbar mostra Profilo e Logout se loggato', async ({ page }) => {
-  await page.addInitScript(() => {
-    const payload = {
-      id: 1,
-      userName: 'test',
-      exp: Math.floor(Date.now() / 1000) + 3600 // valido 1h
-    };
+    // Controlla che Login/Sign-in non siano visibili
+    await expect(page.getByRole('button', { name: 'Login' })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Sign-in' })).toHaveCount(0);
 
-    const base64 = (obj: object) =>
-      btoa(JSON.stringify(obj))
-        .replace(/=/g, '')
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_');
-
-    const token = `${base64({ alg: 'HS256', typ: 'JWT' })}.${base64(payload)}.fake`;
-
-    localStorage.setItem('token', token);
+    // Controlla che il token sia stato salvato in localStorage
+    const token = await page.evaluate(() => localStorage.getItem('token'));
+    expect(token).not.toBeNull();
   });
 
-  await page.goto('/');
+  test('login con credenziali errate mostra errore', async ({ page }) => {
+    await page.fill('input[formControlName="email"]', 'wrong@example.com');
+    await page.fill('input[formControlName="password"]', 'wrongpass');
 
-  await expect(page.getByRole('button', { name: 'Profilo' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Logout' })).toBeVisible();
+    await page.click('button[type="submit"]');
 
-  await expect(page.getByRole('button', { name: 'Login' })).toHaveCount(0);
-  await expect(page.getByRole('button', { name: 'Sign-in' })).toHaveCount(0);
-});
+    // Messaggio di errore visibile
+    await expect(page.getByText(/Errore di login/i)).toBeVisible();
 
-test('utente con token scaduto viene trattato come non loggato', async ({ page }) => {
-  await page.addInitScript(() => {
-    const expiredPayload = {
-      id: 1,
-      userName: 'test',
-      exp: Math.floor(Date.now() / 1000) - 60 // scaduto 1 min fa
-    };
+    // Token non salvato
+    const token = await page.evaluate(() => localStorage.getItem('token'));
+    expect(token).toBeNull();
 
-    const base64 = (obj: object) =>
-      btoa(JSON.stringify(obj))
-        .replace(/=/g, '')
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_');
+    // Rimane su /login
+    await expect(page).toHaveURL(/\/login/);
 
-    const token = `${base64({ alg: 'HS256', typ: 'JWT' })}.${base64(expiredPayload)}.fake`;
-
-    localStorage.setItem('token', token);
+    await expect(page.getByRole('button', { name: 'Sign-in' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Profilo' })).toHaveCount(0);
   });
 
-  await page.goto('/');
+  test('login mostra messaggio se campi vuoti', async ({ page }) => {
+    // Clicca submit senza compilare i campi
+    await page.click('button[type="submit"]');
 
-  await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Profilo' })).toHaveCount(0);
+    // Messaggio di errore visibile
+    await expect(page.getByText(/Errore di login/i)).toBeVisible();
+
+    // Token non salvato
+    const token = await page.evaluate(() => localStorage.getItem('token'));
+    expect(token).toBeNull();
+
+    // Navbar rimane in stato non loggato
+    await expect(page.getByRole('button', { name: 'Sign-in' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Profilo' })).toHaveCount(0);
+
+    // URL invariato
+    await expect(page).toHaveURL(/\/login/);
+  });
+
 });
