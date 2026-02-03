@@ -31,7 +31,7 @@
   <div class="file-upload-wrapper">
     <button type="button" class="file-btn" (click)="fileInput.click()">Scegli Foto</button>
     <span class="file-name">{{ file?.name || 'Nessun file selezionato' }}</span>
-    <input #fileInput type="file" (change)="onFileSelected($event)">
+    <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)">
   </div>
 
 

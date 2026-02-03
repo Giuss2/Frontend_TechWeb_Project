@@ -59,10 +59,20 @@ wrapSelection(before: string, after: string) {
  onFileSelected(event: Event) {
   const input = event.target as HTMLInputElement;
   if (input.files && input.files.length > 0) {
-    this.file = input.files[0];
+    const file = input.files[0];
+    if (!file.type.startsWith('image/')) {
+      alert('Puoi caricare solo immagini!');
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) { // 2 MB
+      alert('L’immagine è troppo grande!');
+      return;
+    }
+    this.file = file;
     console.log('File selezionato:', this.file);
   }
 }
+
 
 
  creaAvvistamento() {
@@ -76,7 +86,6 @@ wrapSelection(before: string, after: string) {
 
   this.avvService.create(data).subscribe({
     next: (createdCat) => {
-      console.log('Avvistamento creato');
        this.router.navigate(['/cat', createdCat.id]);
     },
     error: (err) => {

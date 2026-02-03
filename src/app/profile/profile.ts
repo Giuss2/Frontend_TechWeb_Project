@@ -99,7 +99,6 @@ createAvvistamento(){
     next: () => {
       // Rimuovi l'avvistamento dalla lista senza ricaricare tutto
       this.avvistamenti = this.avvistamenti.filter(a => a.id !== id);
-      console.log(`Avvistamento ${id} eliminato`);
     },
     error: (err) => {
       console.error("Errore eliminazione avvistamento:", err);
