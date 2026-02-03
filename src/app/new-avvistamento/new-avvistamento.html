@@ -14,6 +14,8 @@
     <button title="Grassetto (**testo**)" type="button" (click)="wrapSelection('**', '**')"><b>B</b></button>
     <button title="Corsivo (*testo*)" type="button" (click)="wrapSelection('*', '*')" class="italic-btn">I</button>
     <button title="Lista (- elemento)" type="button" (click)="wrapSelection('\n- ', '')">• Lista</button>
+    <button title="Link ([testo](url))" type="button" (click)="wrapSelection('[', '](https://)')">🔗 Link</button>
+
     
 
   </div>
@@ -22,6 +24,7 @@
   
 **grassetto**
 *corsivo*
+Per aggiungere links: [TestoCliccabile](https://esempio.com)
 - lista
 " maxlength="1000"></textarea>
 <p class="small-text">{{ descrizione.length }}/1000 caratteri</p>
