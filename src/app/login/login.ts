@@ -58,7 +58,7 @@ onLogin() {
       } else {
         this.router.navigate(['/homepage']);
       }
-    }, 1500); // tempo visibile
+    }, 1500);
   })
   .catch((error) => {
     this.error = error?.error?.message || 'Errore di login';
