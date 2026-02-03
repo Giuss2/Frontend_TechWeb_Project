@@ -69,7 +69,6 @@ wrapSelection(before: string, after: string) {
       return;
     }
     this.file = file;
-    console.log('File selezionato:', this.file);
   }
 }
 
