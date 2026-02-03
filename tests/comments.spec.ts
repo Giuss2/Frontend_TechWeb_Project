@@ -26,14 +26,17 @@ test.describe.serial('Gestione Commenti ', () => {
   await expect(commentSection).toBeVisible();
 
   // Leggi il primo commento della pagina 1
-  const firstComment = await page.locator('.commento-card').first().textContent();
+  const firstComment = (await page.locator('.commento-card').first().textContent())?.trim() ?? '';
   expect(firstComment).toBeTruthy();
 
   // Clicca su "Successivo" e verifica che il primo commento cambi
   const nextButton = page.locator('button:has-text("Successivo")');
   if (await nextButton.isEnabled()) {
     await nextButton.click();
-    const nextPageFirstComment = await page.locator('.commento-card').first().textContent();
+
+    // Aspetta che il primo commento cambi
+    await expect(page.locator('.commento-card').first()).not.toHaveText(firstComment);
+    const nextPageFirstComment = (await page.locator('.commento-card').first().textContent())?.trim() ?? '';
     expect(nextPageFirstComment).not.toBe(firstComment);
   }
 
@@ -41,9 +44,11 @@ test.describe.serial('Gestione Commenti ', () => {
   const prevButton = page.locator('button:has-text("Precedente")');
   if (await prevButton.isEnabled()) {
     await prevButton.click();
-    const prevPageFirstComment = await page.locator('.commento-card').first().textContent();
-    expect(prevPageFirstComment).toBe(firstComment);
+
+    await expect(page.locator('.commento-card').first()).toHaveText(firstComment);
   }
+
+
 });
 
 
