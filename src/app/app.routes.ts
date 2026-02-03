@@ -14,8 +14,8 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'logout', component: Logout },
   { path: 'signup', component: SignUp },
-  { path: 'profile', component: ProfiloComponent},
-  { path: 'profile/:id', component: OtherProfile, canActivate: [authorizationGuard]},
+  { path: 'profile', component: ProfiloComponent, canActivate: [authorizationGuard]},
+  { path: 'profile/:id', component: OtherProfile},
   { path: 'cat/:id', component: CatPage },
   { path: 'create-avvistamento', component: NewAvvistamento, canActivate: [authorizationGuard] },
   { path: '**', redirectTo: '' } // wildcard, redirect alla home se URL non trovato
